@@ -1,0 +1,163 @@
+package cn.kuwo.sing.phone4tv.view.adapter;
+
+import java.net.SocketException;
+import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+import cn.kuwo.sing.phone4tv.R;
+import cn.kuwo.sing.phone4tv.bean.Mtv;
+import cn.kuwo.sing.phone4tv.commons.context.MainApplication;
+import cn.kuwo.sing.phone4tv.commons.socket.MessageCommons;
+import cn.kuwo.sing.phone4tv.commons.socket.RequestMessage;
+import cn.kuwo.sing.phone4tv.commons.socket.SocketManager;
+
+import com.devspark.appmsg.AppMsg;
+
+public class OrderedAdapter extends BaseAdapter  {
+	private List<Mtv> mMtvList = new ArrayList<Mtv>();
+	private Activity mActivity;
+	private ProgressDialog progressDialog;
+	
+	public OrderedAdapter(Activity activity) {
+		mActivity = activity;
+		progressDialog = new ProgressDialog(mActivity);
+	}
+	
+	@Override
+	public boolean isEnabled(int position) {
+		return false;
+	}
+	
+	@Override
+	public int getCount() {
+		return mMtvList.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return mMtvList.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
+
+	@Override
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		View view = null;
+		ViewHolder viewHolder = null;
+		if(convertView == null) {
+			view = View.inflate(mActivity, R.layout.item_ordered_detail_list, null);
+			viewHolder = new ViewHolder();
+			viewHolder.tvOrderedMtvArtist = (TextView) view.findViewById(R.id.tvOrderedMtvArtist);
+			viewHolder.tvOrderedMtvName = (TextView) view.findViewById(R.id.tvOrderedMtvName);
+			viewHolder.btOrderedPlayMtv = view.findViewById(R.id.btMtvPlay);
+			viewHolder.btOrderedTopMtv = view.findViewById(R.id.btMtvTop);
+			viewHolder.btOrderedDeleteMtv = view.findViewById(R.id.btMtvDelete);
+			view.setTag(viewHolder);
+		}else {
+			view = convertView;
+			viewHolder = (ViewHolder) view.getTag();
+		}
+		final Mtv mtv = mMtvList.get(position);
+		viewHolder.tvOrderedMtvName.setText(mtv.name);
+		viewHolder.tvOrderedMtvArtist.setText(mtv.artist);
+		
+		viewHolder.btOrderedPlayMtv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				performCommand(MessageCommons.CMD_ORDERED_PLAY, mtv, position);
+			}
+		});
+		viewHolder.btOrderedTopMtv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				performCommand(MessageCommons.CMD_ORDERED_TOP, mtv, position);
+			}
+		});
+		viewHolder.btOrderedDeleteMtv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				performCommand(MessageCommons.CMD_ORDERED_DELETE, mtv, position);
+			}
+		});
+		return view;
+	}
+	
+	private void performCommand(final int cmd, final Mtv mtv, final int index) {
+		final SocketChannel socketChannel = MainApplication.s_socketChannel;
+		if(socketChannel != null && socketChannel.isConnected()) {
+			if(cmd != MessageCommons.CMD_ORDERED_PLAY)
+				showWaitingDialog();
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					try {
+						RequestMessage requestMessage = SocketManager.getInstance().createRequestMessage(
+								cmd, 
+								""+index, 
+								mtv, 
+								null,
+								System.currentTimeMillis());
+						SocketManager.getInstance().writeRequestMessage(socketChannel, requestMessage);
+					} catch (SocketException e) {
+						e.printStackTrace();
+					}
+				}
+			}).start();
+		}else {
+			AppMsg.makeText(mActivity, "没有连接电视，请先扫描二维码!", AppMsg.STYLE_ALERT)
+			.setLayoutGravity(Gravity.TOP)
+			.show();
+		}
+	}
+	
+	/**
+	 * 本类使用
+	 */
+	private void showWaitingDialog() {
+		progressDialog.setTitle("请稍后，正在远程处理");
+		progressDialog.show();
+	}
+	
+	/**
+	 * 给Fragment使用
+	 */
+	public void hideWaitingDialog() {
+		if(progressDialog != null && progressDialog.isShowing())
+			progressDialog.hide();
+	}
+	
+	private static class ViewHolder {
+		TextView tvOrderedMtvArtist;
+		TextView tvOrderedMtvName;
+		View btOrderedPlayMtv;
+		View btOrderedTopMtv;
+		View btOrderedDeleteMtv;
+	}
+
+	public void clearMtvList() {
+		mMtvList.clear();		
+	}
+
+	public void setOrderedData(List<Mtv> mtvList) {
+		mMtvList = mtvList;
+		notifyDataSetChanged();
+	}
+
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/pinyin_order_suggest_listview_width"
+    android:layout_height="match_parent" >
+    
+    <ListView
+        android:id="@+id/lv_pinyin_order_search_prompt"
+        style="@style/CustomListView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/list_border_bg_old"
+        android:focusable="true"
+        android:scrollbars="none"
+        android:nextFocusDown="@id/lv_pinyin_order_search_prompt"
+        android:nextFocusUp="@+id/btPinyinOrderSeachGo" />
+    
+</RelativeLayout>

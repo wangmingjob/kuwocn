@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">酷我K歌</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="backgroud_activity">背景界面</string>
+    <string name="dialog_title">提示</string>
+    <string name="dialog_ok">确定</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_exit_content">您确定要退出么？</string>
+    <string name="ordered_mtv_empty_prompt">你的列表中还未添加任何歌曲！</string>
+    
+    <string name="changelog_full_title">更新日志</string>
+    <string name="changelog_title">新特性</string>
+    <string name="changelog_ok_button">确定</string>
+    <string name="changelog_show_full">更多…</string>
+
+    <string name="changelog_version_format">版本 <xliff:g id="version_name">%s</xliff:g></string>
+</resources>

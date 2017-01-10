@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="60dip" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@+id/rlDealMtv"
+        android:layout_marginRight="20dp" >
+
+        <TextView
+            android:id="@+id/tvDetailMtvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:singleLine="true"
+            android:text="歌曲名称"
+            android:textColor="#2b2b2b"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvDetailMtvArtist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDetailMtvName"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="2dp"
+            android:text="歌手名字"
+            android:singleLine="true"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlDealMtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp" >
+
+        <ImageView
+            android:id="@+id/btMtvPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/bt_play_selector" />
+
+       	<ImageView
+            android:id="@+id/btMtvAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/btMtvPlay"
+            android:background="@drawable/bt_add_selector" />
+    </RelativeLayout>
+
+</RelativeLayout>

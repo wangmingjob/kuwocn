@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="fill"
+    android:baselineAligned="false"
+    android:divider="?android:attr/dividerHorizontal"
+    android:gravity="fill"
+    android:orientation="horizontal"
+    android:showDividers="none"
+    tools:context=".view.activity.SecondItemListActivity" >
+
+    <fragment
+        android:id="@+id/item_list_second"
+        android:name="cn.kuwo.sing.tv.view.fragment.SecondItemListFragment"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="320" />
+
+    <FrameLayout
+        android:id="@+id/item_detail_container_second"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1660" />
+
+</LinearLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/dialog_background_shape" >
+    
+     <LinearLayout
+        android:layout_width="1084dp"
+        android:layout_height="548dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/dialog_content_background_shape"
+        android:gravity="center"
+        android:orientation="vertical" >
+        
+        <LinearLayout
+            android:id="@+id/llMicSettingTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+       	    android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            
+            <ImageView
+	            android:id="@+id/ivMicSettingPic"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/logo_microphone_setting"
+	            android:visibility="visible" />
+    
+    		<TextView
+		        android:id="@+id/tvMicSetting"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+				android:layout_gravity="bottom"
+		        android:layout_marginLeft="10dp"
+		        android:text="麦克风设置"
+		        android:textColor="@color/more_title_color"
+		        android:textSize="@dimen/more_title_text" />
+        </LinearLayout>
+
+       <ImageView
+	        android:id="@+id/ivMicSettingDivide"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+           	android:layout_marginLeft="20dp"
+           	android:layout_marginTop="10dp"
+           	android:layout_marginRight="20dp"
+	        android:src="@color/more_title_color" />
+        
+      <ListView
+      		android:id="@+id/lvMicSetting"
+       		style="@style/CustomListView"
+       		android:layout_width="wrap_content"
+       		android:layout_height="fill_parent"
+       		android:layout_marginLeft="35dp"
+       		android:layout_marginRight="35dp"
+       		android:divider="@color/more_title_color"
+     		android:dividerHeight="0.5dp"
+       		android:headerDividersEnabled="false"
+       		android:scrollbars="none" />
+      
+   	</LinearLayout>
+</RelativeLayout>

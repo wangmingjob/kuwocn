@@ -1,0 +1,47 @@
+/**
+ * Copyright (c) 2013, FightingTime, Inc. All rights reserved. 
+ */
+package cn.kuwo.sing.phone4tv.view.activity;
+
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import cn.kuwo.sing.phone4tv.R;
+import cn.kuwo.sing.phone4tv.commons.file.PreferencesManager;
+
+/**
+ * @Package cn.kuwo.sing.phone4tv.view.activity
+ * 
+ * @Date Mar 24, 2014 3:31:37 PM
+ *
+ * @Author wangming
+ *
+ */
+public class UserGuideActivity extends Activity {
+
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		//无标题和全屏必须在setContentView之前
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		final View view = View.inflate(this, R.layout.activity_userguide, null);
+		setContentView(view);
+		
+		Button btUserGuideToHomePage = (Button) findViewById(R.id.btUserGuideToHomePage);
+		btUserGuideToHomePage.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				PreferencesManager.put("isFirstRunning", false);
+				startActivity(new Intent(UserGuideActivity.this, MainActivity.class));
+				finish();
+			}
+		});
+	}
+}

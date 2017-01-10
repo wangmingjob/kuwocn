@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/operation_tip"
+    android:focusable="false"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="25dp"
+        android:focusable="false"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/tvOperationBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/operation_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:layout_toRightOf="@id/tvOperationBack"
+            android:layout_centerVertical="true"
+            android:text="返回"
+            android:textSize="22sp" 
+            android:textColor="@android:color/white"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:focusable="false"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/tvOperationNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/operation_nav" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:layout_toRightOf="@id/tvOperationNav"
+            android:layout_centerVertical="true"
+            android:text="选择"
+            android:textSize="22sp" 
+            android:textColor="@android:color/white"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:focusable="false"
+        android:layout_weight="1" >
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:layout_centerVertical="true"
+            android:text="遥控数字键可快速定位"
+            android:textSize="22sp"
+            android:textColor="@android:color/white"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

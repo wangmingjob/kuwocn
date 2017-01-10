@@ -1,0 +1,55 @@
+/**
+ * Copyright (c) 2013, Kuwo.cn, Inc. All rights reserved. 
+ */
+package cn.kuwo.sing.dao.generator.producer;
+
+import cn.kuwo.sing.dao.generator.DaoGenerator;
+import cn.kuwo.sing.dao.generator.Entity;
+import cn.kuwo.sing.dao.generator.Property;
+import cn.kuwo.sing.dao.generator.Schema;
+import cn.kuwo.sing.dao.generator.ToMany;
+
+/**
+ * @Package cn.kuwo.sing.dao.generator.producer
+ * 
+ * @Date 2013年10月29日 下午6:55:51
+ * 
+ * @author wangming
+ * 
+ */
+public class MusicProducer {
+	public static void main(String[] args) throws Exception {
+		Schema schema = new Schema(3, "cn.kuwo.sing.dao");
+
+		addNote(schema);
+		addCustomerOrder(schema);
+
+		new DaoGenerator().generateAll(schema, "../KwSing_Phone/src-gen");
+	}
+
+	private static void addNote(Schema schema) {
+		Entity note = schema.addEntity("Note");
+		note.addIdProperty();
+		note.addStringProperty("text").notNull();
+		note.addStringProperty("comment");
+		note.addDateProperty("date");
+	}
+
+	private static void addCustomerOrder(Schema schema) {
+		Entity customer = schema.addEntity("Customer");
+		customer.addIdProperty();
+		customer.addStringProperty("name").notNull();
+
+		Entity order = schema.addEntity("Order");
+		order.setTableName("ORDERS"); // "ORDER" is a reserved keyword
+		order.addIdProperty();
+		Property orderDate = order.addDateProperty("date").getProperty();
+		Property customerId = order.addLongProperty("customerId").notNull()
+				.getProperty();
+		order.addToOne(customer, customerId);
+
+		ToMany customerToOrders = customer.addToMany(order, customerId);
+		customerToOrders.setName("orders");
+		customerToOrders.orderAsc(orderDate);
+	}
+}

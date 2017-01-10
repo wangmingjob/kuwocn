@@ -1,0 +1,85 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="@style/Theme.Sherlock.Light">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:windowAnimationStyle">@style/default_animation</item>
+        <item name="android:actionBarStyle">@style/actionBarStyle</item>
+        
+        <item name="windowAnimationStyle">@style/default_animation</item>
+        <item name="actionBarStyle">@style/actionBarStyle</item>
+    </style>
+    
+    <style name="actionBarStyle" parent="Widget.Sherlock.ActionBar.Solid">
+        <item name="android:titleTextStyle">@style/titleTextStyle</item>
+        <item name="android:subtitleTextStyle">@style/TextAppearance.Sherlock.Widget.ActionBar.Subtitle</item>
+        <item name="android:background">@drawable/abs__ab_solid_light_holo</item>
+        <item name="android:backgroundStacked">@drawable/abs__ab_stacked_solid_light_holo</item>
+        <item name="android:backgroundSplit">@drawable/abs__ab_bottom_solid_light_holo</item>
+        <item name="android:divider">?attr/dividerVertical</item>
+        <item name="android:progressBarStyle">@style/Widget.Sherlock.Light.ProgressBar.Horizontal</item>
+        <item name="android:indeterminateProgressStyle">@style/Widget.Sherlock.Light.ProgressBar</item>
+        <item name="android:progressBarPadding">32dip</item>
+        <item name="android:itemPadding">8dip</item>
+        
+        <item name="titleTextStyle">@style/titleTextStyle</item>
+        <item name="subtitleTextStyle">@style/TextAppearance.Sherlock.Widget.ActionBar.Subtitle</item>
+        <item name="background">@drawable/abs__ab_solid_light_holo</item>
+        <item name="backgroundStacked">@drawable/abs__ab_stacked_solid_light_holo</item>
+        <item name="backgroundSplit">@drawable/abs__ab_bottom_solid_light_holo</item>
+        <item name="divider">?attr/dividerVertical</item>
+        <item name="progressBarStyle">@style/Widget.Sherlock.Light.ProgressBar.Horizontal</item>
+        <item name="indeterminateProgressStyle">@style/Widget.Sherlock.Light.ProgressBar</item>
+        <item name="progressBarPadding">32dip</item>
+        <item name="itemPadding">8dip</item>
+    </style>
+    
+    <style name="titleTextStyle" parent="@android:TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">#ffffff</item>
+    </style>
+    
+    <!-- 默认Activity跳转动画 -->
+	<style name="default_animation" mce_bogus="1" parent="@android:style/Animation.Activity">
+	    <item name="android:activityOpenEnterAnimation">@anim/push_right_in</item>
+	    <item name="android:activityOpenExitAnimation">@anim/fade_out</item>
+	    <item name="android:activityCloseEnterAnimation">@anim/fade_in</item>
+	    <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>
+	</style>
+    
+    <style name="SplashActivityTheme" parent="android:Theme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+    </style>
+    
+    <style name="CaptureTheme" parent="@style/Theme.Sherlock">
+	    <item name="android:windowFullscreen">true</item>
+	    <item name="android:windowContentOverlay">@null</item>
+	    <item name="android:windowActionBarOverlay">true</item>
+	    <item name="android:windowActionModeOverlay">true</item>
+  	</style>
+    
+    <style name="ResultButton" parent="@style/Widget.Sherlock.Button.Small">
+    <item name="android:layout_width">0dip</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_weight">1</item>
+  </style>
+  <style name="ShareButton" parent="@style/Widget.Sherlock.Button.Small">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
+
+</resources>

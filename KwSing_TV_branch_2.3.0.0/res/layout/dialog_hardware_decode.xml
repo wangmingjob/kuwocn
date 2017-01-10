@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/dialog_background_shape" >
+
+
+    <LinearLayout
+        android:layout_width="1084dp"
+        android:layout_height="548dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/dialog_content_background_shape"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_hardware_decode" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="10dp"
+                android:text="硬解码设置"
+                android:textColor="@color/more_title_color"
+                android:textSize="@dimen/more_title_text" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:src="@color/more_title_color" />
+        
+         <RelativeLayout
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:layout_marginLeft="20dp">
+
+             <LinearLayout
+                 android:id="@+id/llHardwareDecode"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="30dp"
+                 android:orientation="horizontal" >
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="硬解码"
+                     android:textAllCaps="true"
+                     android:textColor="@color/vpi__background_holo_dark"
+                     android:textSize="26sp" >
+                 </TextView>
+                 
+                 <Switch
+	                 android:id="@+id/llHardwareSwitch"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:layout_marginLeft="20dp"
+	                 android:textSize="20sp"
+	                 
+	                 android:text="打开" />
+                 
+             </LinearLayout>
+             
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/llHardwareDecode"
+                 android:layout_marginTop="20dp"
+                 android:textSize="20sp"
+                 android:textColor="@color/vpi__background_holo_dark"
+                 android:text="开启硬解码后，若出现无法播放的情况，请关闭硬解码">
+             </TextView>
+             
+         </RelativeLayout>
+        
+    </LinearLayout>
+</RelativeLayout>

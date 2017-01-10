@@ -1,0 +1,207 @@
+/**
+ * Copyright (c) 2005, Kuwo, Inc. All rights reserved. 
+ */
+package cn.kuwo.sing.phone4tv.commons.socket;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.SocketChannel;
+import java.util.HashMap;
+import java.util.Map;
+
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import cn.kuwo.sing.phone4tv.bean.Mtv;
+import cn.kuwo.sing.phone4tv.bean.UserMtv;
+
+/**
+ * @Package cn.kuwo.sing.tv.logic.service
+ *
+ * @Date 2014-3-18, 下午5:59:35
+ *
+ * @Author wangming
+ *
+ */
+public class NioHandlerImpl implements NioHandler {
+	private static final String LOG_TAG = "NioHandlerImpl";
+	private int mBufferSize;
+	private Map<String, Handler> mUpdateConversationHandlerMap = new HashMap<String ,Handler>();
+	
+	public NioHandlerImpl() {
+		mBufferSize = 1024;
+	}
+	
+	private void sendUpdateConversationMessage(int what, Object obj) {
+		for (Map.Entry<String, Handler> me : mUpdateConversationHandlerMap.entrySet()){
+			Handler handler = me.getValue();
+			if (handler == null)
+				continue;
+			Message msg = handler.obtainMessage();
+			msg.what = what;
+			msg.obj = obj;
+			handler.sendMessage(msg);
+		}
+	}
+	
+	@Override
+	public void handleConnect(SelectionKey sk) {
+		try {
+			SocketChannel socketChannel = (SocketChannel) sk.channel();
+			if(socketChannel.isConnectionPending()) //如果正在连接，则完成连接
+				socketChannel.finishConnect();
+			socketChannel.configureBlocking(false);
+			//在和服务端连接成功之后，为了可以接收到服务端的信息，需要给通道设置读的权限。
+			sk.interestOps(SelectionKey.OP_READ);
+		} catch (IOException e) {
+			try {
+				sk.cancel();
+				SocketChannel channel = (SocketChannel) sk.channel();
+				channel.socket().close();
+				sendUpdateConversationMessage(MessageCommons.RESULT_CONNECT_FAIL, null);
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void handleRead(SelectionKey sk) {
+		SocketChannel socketChannel = (SocketChannel) sk.channel();
+		try {
+			ResponseMessage responseMessage = readResponseMessage(socketChannel, mBufferSize);
+			if(responseMessage == null) {
+				sendUpdateConversationMessage(MessageCommons.RESULT_CONNECT_FAIL, null);
+				return;
+			}
+			if(responseMessage.cmd == 0
+					&&responseMessage.result == 0
+					&&responseMessage.time == 0) {
+				sendUpdateConversationMessage(MessageCommons.RESULT_SERVER_SHUTDOWN, null);
+				return;
+			}
+			if(responseMessage.cmd >= MessageCommons.CMD_TO_PLAY 
+					&& responseMessage.result == MessageCommons.RESULT_IS_NOT_PLAYING) {
+				sendUpdateConversationMessage(MessageCommons.RESULT_IS_NOT_PLAYING, null);
+				return;
+			}
+			switch (responseMessage.cmd) {
+			case MessageCommons.CMD_CONNECT:
+				if(MessageCommons.RESULT_CONNECT_SUCCESS == responseMessage.result) {
+					sendUpdateConversationMessage(MessageCommons.RESULT_CONNECT_SUCCESS, null);
+				}else {
+					sendUpdateConversationMessage(MessageCommons.RESULT_CONNECT_FAIL, null);
+				}
+				break;
+			case MessageCommons.CMD_ORDERED_MTV_WRITE:
+				if(MessageCommons.RESULT_SUCCESS == responseMessage.result) {
+					sendUpdateConversationMessage(MessageCommons.CMD_ORDERED_MTV_WRITE, responseMessage.data);
+				}
+				break;
+			case MessageCommons.RESULT_TO_SWITCH_ORIGINAL:
+				sendUpdateConversationMessage(MessageCommons.RESULT_TO_SWITCH_ORIGINAL, null);
+				break;
+			case MessageCommons.RESULT_TO_SWITCH_ACCOMP:
+				sendUpdateConversationMessage(MessageCommons.RESULT_TO_SWITCH_ACCOMP, null);
+				break;
+			case MessageCommons.RESULT_TO_PLAY:
+				sendUpdateConversationMessage(MessageCommons.RESULT_TO_PLAY, null);
+				break;
+			case MessageCommons.RESULT_TO_PAUSE:
+				sendUpdateConversationMessage(MessageCommons.RESULT_TO_PAUSE, null);
+				break;
+			case MessageCommons.RESULT_ORDERED_MTV_DELETE:
+				sendUpdateConversationMessage(MessageCommons.RESULT_ORDERED_MTV_DELETE, responseMessage.result);
+				break;
+			case MessageCommons.RESULT_ORDERED_MTV_TOP:
+				sendUpdateConversationMessage(MessageCommons.RESULT_ORDERED_MTV_TOP, responseMessage.result);
+				break;
+			default:
+				break;
+			}
+		} catch (IOException e) {
+			try {
+				sk.cancel();
+				SocketChannel channel = (SocketChannel) sk.channel();
+				channel.socket().close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void handleWrite(SelectionKey sk) {
+		
+	}
+	
+	private ResponseMessage readResponseMessage(SocketChannel socketChannel, int bufferSize) throws IOException {
+		ResponseMessage responseMessage = new ResponseMessage();
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ByteBuffer buffer = ByteBuffer.allocate(bufferSize);
+		
+		try {
+			byte[] bytes;
+			int size = 0;
+			while ((size = socketChannel.read(buffer)) > 0) { //non blocking read request message
+				buffer.flip();
+				bytes = new byte[size];
+				buffer.get(bytes);
+				baos.write(bytes);
+				buffer.clear();
+			}
+			if(size == -1) {
+				socketChannel.close();
+				socketChannel.socket().close();
+				return responseMessage;
+			}
+			bytes = baos.toByteArray();
+			responseMessage = MessageCommons.parseJsonToResponseMessage(new String(bytes));
+		}catch (Exception e) {
+			e.printStackTrace();
+			//connect time out
+			responseMessage = null;
+		}finally {
+			try {
+				baos.close();
+			} catch(Exception ex) {}
+		}
+		return responseMessage;
+	}
+	
+	public RequestMessage createRequestMessage(int cmd, String extraMessage, Mtv data, UserMtv userData, long time) {
+		RequestMessage requestMessage = new RequestMessage();
+		requestMessage.cmd = cmd;
+		requestMessage.extraMessage = extraMessage;
+		requestMessage.data = data;
+		requestMessage.userData = userData;
+		requestMessage.time = time;
+		return requestMessage;
+	}
+	
+	public void writeRequestMessage(SocketChannel socketChannel, RequestMessage requestMessage) {
+		try {
+			String json = MessageCommons.parseRequestMessageToJson(requestMessage);
+			if(TextUtils.isEmpty(json))
+				return;
+			byte[] bytes = json.getBytes();
+			ByteBuffer buffer = ByteBuffer.allocate(1024);
+			buffer.clear();
+			buffer.put(bytes);
+			buffer.flip();
+			socketChannel.write(buffer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void addHandler(String className, Handler updateConversationHandler) {
+		mUpdateConversationHandlerMap.put(className, updateConversationHandler);
+	}
+
+	public void removeHandler(String className) {
+		mUpdateConversationHandlerMap.remove(className);
+	}
+}

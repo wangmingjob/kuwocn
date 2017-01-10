@@ -1,0 +1,93 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="CustomDialog" parent="@android:style/Theme.Light.Panel">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+    
+    <style name="ActivityTheme" parent="android:Theme.Light.NoTitleBar.Fullscreen">
+        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+    </style>
+    
+    <style name="PlayActivityTheme" parent="android:Theme.Light.NoTitleBar.Fullscreen">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    
+    <style name="ActivityAnimation" mce_bogus="1" parent="android:Animation">
+        <item name="android:activityOpenEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@android:anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:activityCloseExitAnimation">@android:anim/fade_out</item>
+    </style>
+    
+    <style name="shadowTextView">
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDy">3</item>
+        <item name="android:shadowRadius">3</item>
+    </style>
+    
+    <style name="CustomProgressDialog" parent="@style/CustomDialog">
+		<item name="android:windowBackground">@android:color/transparent</item>
+    	<item name="android:windowNoTitle">true</item>
+	</style>
+
+    <style name="CustomListView">
+    	<item name="android:divider">@null</item>
+    	<item name="android:scrollbars">none</item>
+    	<item name="android:cacheColorHint">#00000000</item>
+    	<item name="android:focusable">false</item>
+    	<item name="android:listSelector">#00000000</item>
+	</style>
+	
+    <style name="ListImageViewItem">
+		<item name="android:layout_width">150dp</item>
+    	<item name="android:layout_height">150dp</item>
+    	<item name="android:scaleType">fitXY</item>
+    	<item name="android:padding">8dp</item>
+    	<item name="android:background">@drawable/iv_bg_selector</item>
+	</style>
+	
+    <style name="TextAppearance">  
+        <item name="android:textColor">@android:color/primary_text_dark</item>  
+        <item name="android:textColorHighlight">#FFFF9200</item>  
+        <item name="android:textColorHint">#808080</item>  
+        <item name="android:textColorLink">#5C5CFF</item>  
+        <item name="android:textSize">16sp</item>  
+        <item name="android:textStyle">normal</item>  
+    </style>  
+    <style name="TextAppearance.Big">  
+        <item name="android:textSize">26sp</item>  
+        <item name="android:textStyle">normal</item>  
+        <item name="android:textColor">@android:color/secondary_text_light</item>  
+    </style>
+    
+    <style name="voiceRatingBar" parent="@android:style/Widget.RatingBar"> 
+	 	<item name="android:progressDrawable">@drawable/rating_bar</item>
+	 	<item name="android:minHeight">48dip</item> 
+		<item name="android:maxHeight">48dip</item> 
+	</style> 
+</resources>

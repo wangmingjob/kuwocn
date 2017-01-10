@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlOrderedMtv"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent" >
+
+    <RelativeLayout
+        android:id="@+id/rlOrderedMtvPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#55000000"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingTop="@dimen/fragment_title_padding_top"
+        android:paddingBottom="@dimen/fragment_title_padding_bottom" >
+
+        <TextView
+            android:id="@+id/tvOrderedMtvPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/order_mtv_title_prompt_margin_bottom"
+            android:layout_marginLeft="@dimen/order_mtv_title_prompt_margin_left"
+            android:layout_marginTop="@dimen/order_mtv_title_prompt_margin_top"
+            android:text="已点歌曲： "
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_item_title" />
+
+        <TextView
+            android:id="@+id/tvOrderedMtvNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/order_mtv_title_number_margin_bottom"
+            android:layout_marginTop="@dimen/order_mtv_title_number_margin_top"
+            android:layout_toRightOf="@id/tvOrderedMtvPrompt"
+            android:text="99"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_ordered_mtv_num"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tvOrderedMtvNumberEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/order_mtv_title_end_margin_bottom"
+            android:layout_marginLeft="@dimen/order_mtv_title_end_margin_left"
+            android:layout_marginTop="@dimen/order_mtv_title_end_margin_top"
+            android:layout_toRightOf="@id/tvOrderedMtvNumber"
+            android:text="首"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_item_title" />
+        
+        <Button
+            android:id="@+id/btOrderedMtvClearList"
+            android:layout_width="@dimen/order_mtv_title_clear_list_width"
+            android:layout_height="@dimen/order_mtv_title_delete_height"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/btOrderedMtvDeleteRepeat"
+            android:layout_marginRight="@dimen/order_mtv_title_clear_margin_right"
+            android:background="@drawable/bt_clear_mtv_list_selector"
+            android:nextFocusDown="@+id/lvOrderedMtv"
+            android:nextFocusLeft="@id/rbOrderedMtv"
+            android:nextFocusUp="@+id/btOrderedMtvClearList" />
+
+        <Button
+            android:id="@+id/btOrderedMtvDeleteRepeat"
+            android:layout_width="@dimen/order_mtv_title_delete_width"
+            android:layout_height="@dimen/order_mtv_title_delete_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/order_mtv_title_delete_margin_right"
+            android:background="@drawable/bt_delete_repeated_selector"
+            android:nextFocusDown="@+id/lvOrderedMtv"
+            android:nextFocusLeft="@id/btOrderedMtvClearList"
+            android:nextFocusUp="@+id/btOrderedMtvDeleteRepeat" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivOrderedMtvListDivide"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlOrderedMtvPrompt"
+        android:src="@drawable/list_divider" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/rlOrderedPagerButton"
+        android:layout_below="@id/ivOrderedMtvListDivide" >
+
+        <ListView
+            android:id="@+id/lvOrderedMtv"
+            style="@style/CustomListView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="5dp"
+            android:nextFocusDown="@+id/btOrderedNextPage"
+            android:scrollbarFadeDuration="0"
+            android:scrollbars="vertical" />
+
+        <RelativeLayout
+            android:id="@+id/rlOrderedMtvEmptyPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible" >
+
+            <TextView
+                android:id="@+id/tvOrderedMtvEmptyPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="@string/ordered_mtv_empty_prompt"
+                android:textColor="@android:color/white"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btOrderedMtvGoOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvOrderedMtvEmptyPrompt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/bt_to_order_selector"
+                android:nextFocusDown="@+id/btOrderedMtvGoOrder"
+                android:nextFocusLeft="@id/rbOrderedMtv"
+                android:nextFocusUp="@+id/btOrderedMtvGoOrder" />
+        </RelativeLayout>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlOrderedPagerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" >
+
+        <Button
+            android:id="@+id/btOrderedPreviousPage"
+            android:layout_width="@dimen/bt_page_width"
+            android:layout_height="@dimen/bt_page_height"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/bt_pre_page_selector"
+            android:nextFocusDown="@+id/btOrderedPreviousPage"
+            android:nextFocusLeft="@+id/rbOrderedMtv"
+            android:nextFocusUp="@+id/lvOrderedMtv"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_button_page" />
+
+        <TextView
+            android:id="@+id/tvOrderedPagePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/bt_page_content_margin_left"
+            android:layout_marginRight="@dimen/bt_page_content_margin_right"
+            android:layout_toRightOf="@id/btOrderedPreviousPage"
+            android:text="0/0"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_page_content" />
+
+        <Button
+            android:id="@+id/btOrderedNextPage"
+            android:layout_width="@dimen/bt_page_width"
+            android:layout_height="@dimen/bt_page_height"
+            android:layout_toRightOf="@id/tvOrderedPagePrompt"
+            android:background="@drawable/bt_next_page_selector"
+            android:nextFocusDown="@+id/btOrderedNextPage"
+            android:nextFocusRight="@+id/btOrderedNextPage"
+            android:nextFocusUp="@+id/lvOrderedMtv"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_button_page" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res/cn.kuwo.sing.tv"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp" >
+
+    <ImageView
+        android:id="@+id/ivSingerPrePagePrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:clickable="true"
+        android:focusable="false"
+        android:src="@drawable/iv_pre_page_normal" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/rlSingerBottom"
+        android:layout_below="@id/ivSingerPrePagePrompt"
+        android:layout_marginTop="6dp" >
+
+        <FrameLayout
+            android:id="@+id/flSingerByKeyword"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:visibility="gone" >
+
+            <GridView
+                android:id="@+id/gvSingerByKeyword"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:cacheColorHint="#000000"
+                android:gravity="center"
+                android:nextFocusDown="@id/gvSingerByKeyword"
+                android:nextFocusUp="@id/gvSingerByKeyword"
+                android:numColumns="5"
+                android:scrollbarFadeDuration="0"
+                android:scrollbars="vertical"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/llSingerRequestFailByKeyword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="网络数据请求失败 :("
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textSize_network_error" />
+
+                <Button
+                    android:id="@+id/btSingerRequestFailByKeyword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/bt_retry_selector" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvSingerSearchEmptyPromptByKeyword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="没有满足要求的歌手"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/textSize_network_error"
+                android:visibility="invisible" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_singer_byKeyword"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="false"
+                android:indeterminateDrawable="@anim/loading_progress_bar"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/flSinger"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center" >
+
+            <GridView
+                android:id="@+id/gvSinger"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:cacheColorHint="#000000"
+                android:gravity="center"
+                android:nextFocusDown="@id/gvSinger"
+                android:nextFocusUp="@id/gvSinger"
+                android:numColumns="5"
+                android:visibility="visible"
+                android:scrollbarFadeDuration="0"
+                android:scrollbars="vertical"
+                android:verticalSpacing="0dp" />
+
+            <LinearLayout
+                android:id="@+id/llSingerRequestFail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="网络数据请求失败 :("
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textSize_network_error" />
+
+                <Button
+                    android:id="@+id/btSingerRequestFail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/bt_retry_selector" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar_singer"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="false"
+                android:indeterminateDrawable="@anim/loading_progress_bar"
+                android:visibility="invisible" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlSingerBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <ImageView
+            android:id="@+id/ivSingerNextPagePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:focusable="false"
+            android:src="@drawable/iv_next_page_normal" />
+
+        <TextView
+            android:id="@+id/tvSingerPagePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="0/0"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_new_page_mode_content" />
+    </RelativeLayout>
+
+</RelativeLayout>

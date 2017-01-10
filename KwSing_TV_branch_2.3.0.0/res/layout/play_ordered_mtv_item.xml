@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/ll_play_ordered_mtv_item"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/list_item_bg_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp" >
+
+        <TextView
+            android:id="@+id/tvPlayOrderedMtvSerialIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="111"
+            android:textColor="@drawable/item_color"
+            android:textSize="@dimen/item_text_index" />
+
+        <ImageView
+            android:id="@+id/ivPlayOrderedMtvPlayingLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="7dp"
+            android:src="@drawable/song_playing"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvPlayOrderedMtvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="2"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLength="@integer/item_text_len"
+            android:singleLine="true"
+            android:text="十二生肖已点歌曲列表，无法滑动已点歌曲列表，无法滑动已点歌曲列表，"
+            android:textColor="@drawable/item_color"
+            android:textSize="@dimen/item_text" />
+
+
+        <ImageView
+            android:id="@+id/btPlayMtvSing"
+            android:layout_width="@dimen/bt_operation_width"
+            android:layout_height="@dimen/bt_operation_height"
+            android:nextFocusRight="@+id/btMtvSing"
+            android:background="@drawable/song_mtv_selector"
+            android:nextFocusLeft="@id/btMtvSing" />
+
+        <ImageView
+            android:id="@+id/btPlayMtvTop"
+            android:layout_width="@dimen/bt_operation_width"
+            android:layout_height="@dimen/bt_operation_height"
+            android:nextFocusRight="@+id/btMtvTop"
+            android:background="@drawable/top_mtv_selector" />
+
+        <ImageView
+            android:id="@+id/btPlayMtvDelete"
+            android:layout_width="@dimen/bt_operation_width"
+            android:layout_height="@dimen/bt_operation_height"
+         	android:nextFocusRight="@+id/btMtvDelete"
+            android:background="@drawable/delete_mtv_selector" />
+    </LinearLayout>
+    
+    <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/ll_ordered_mtv_item"
+        android:src="@drawable/list_item_divider"
+        />
+
+</RelativeLayout>

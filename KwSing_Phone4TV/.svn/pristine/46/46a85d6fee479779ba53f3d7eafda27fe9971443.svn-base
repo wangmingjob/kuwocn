@@ -1,0 +1,195 @@
+/**
+ * Copyright (c) 2013, FightingTime, Inc. All rights reserved. 
+ */
+package cn.kuwo.sing.phone4tv.view.adapter;
+
+import java.io.IOException;
+import java.net.SocketException;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.devspark.appmsg.AppMsg;
+import com.umeng.analytics.MobclickAgent;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+import cn.kuwo.sing.phone4tv.R;
+import cn.kuwo.sing.phone4tv.bean.Mtv;
+import cn.kuwo.sing.phone4tv.commons.context.Constants;
+import cn.kuwo.sing.phone4tv.commons.context.MainApplication;
+import cn.kuwo.sing.phone4tv.commons.socket.MessageCommons;
+import cn.kuwo.sing.phone4tv.commons.socket.RequestMessage;
+import cn.kuwo.sing.phone4tv.commons.socket.SocketManager;
+
+/**
+ * @Package cn.kuwo.sing.phone4tv.view.adapter
+ * 
+ * @Date Mar 6, 2014 6:10:25 PM
+ *
+ * @Author wangming
+ *
+ */
+public class DetailAdapter extends BaseAdapter {
+	private static final String LOG_TAG = "DetailAdapter";
+	private Activity mActivity;
+	private int mPageFrom;
+	private int mCurrentPageNum;
+	private List<Mtv> mMtvList = new ArrayList<Mtv>();
+	private int mPageSize = Constants.PAGE_SIZE_DETAIL_MTV_LIST;
+	//private SocketManager mSocketManager;
+	
+	public DetailAdapter(Activity activity, int pageFrom) {
+		mActivity = activity;
+		mPageFrom = pageFrom;
+		//mSocketManager = new SocketManager(null);
+	}
+	
+	public void setMtvData(int currentPageNum, List<Mtv> mtvList) {
+		mCurrentPageNum = currentPageNum;
+		mMtvList.addAll(mtvList);
+		notifyDataSetChanged();
+	}
+	
+	public void clearMtvList() {
+		mMtvList.clear();
+	}
+
+	@Override
+	public int getCount() {
+		return mMtvList.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return mMtvList.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		View view = null;
+		ViewHolder viewHolder = null;
+		if(convertView == null) {
+			view = View.inflate(mActivity, R.layout.item_detail_list, null);
+			viewHolder = new ViewHolder();
+			viewHolder.tvDetailMtvArtist = (TextView) view.findViewById(R.id.tvDetailMtvArtist);
+			viewHolder.tvDetailMtvName = (TextView) view.findViewById(R.id.tvDetailMtvName);
+			viewHolder.btDetailAddMtv = view.findViewById(R.id.btMtvAdd);
+			viewHolder.btDetailPlayMtv = view.findViewById(R.id.btMtvPlay);
+			view.setTag(viewHolder);
+		}else {
+			view = convertView;
+			viewHolder = (ViewHolder) view.getTag();
+		}
+		final Mtv mtv = mMtvList.get(position);
+		viewHolder.tvDetailMtvName.setText(mtv.name);
+		viewHolder.tvDetailMtvArtist.setText(mtv.artist);
+		
+		viewHolder.btDetailAddMtv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				String addFlag = null;
+				switch (mPageFrom) {
+				case 1:
+					addFlag = "ADD_FROM_PINYIN";
+					break;
+				case 2:
+					addFlag = "ADD_FROM_HOTBAR";
+					break;
+				case 3:
+					addFlag = "ADD_FROM_SINGER";
+					break;
+				case 4:
+					addFlag = "ADD_FROM_CATEGORY";
+					break;
+
+				default:
+					break;
+				}
+				MobclickAgent.onEvent(mActivity, Constants.KS_UMENG_ADD, addFlag);
+				performCommand(MessageCommons.CMD_ADD, mtv);
+			}
+		});
+		viewHolder.btDetailPlayMtv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				String singFlag = null;
+				switch (mPageFrom) {
+				case 1:
+					singFlag = "SING_FROM_PINYIN";
+					break;
+				case 2:
+					singFlag = "SING_FROM_HOTBAR";
+					break;
+				case 3:
+					singFlag = "SING_FROM_SINGER";
+					break;
+				case 4:
+					singFlag = "SING_FROM_CATEGORY";
+					break;
+
+				default:
+					break;
+				}
+				MobclickAgent.onEvent(mActivity, Constants.KS_UMENG_ADD, singFlag);
+				performCommand(MessageCommons.CMD_PLAY, mtv);
+			}
+		});
+		return view;
+	}
+	
+	private void performCommand(final int cmd, final Mtv mtv) {
+		final SocketChannel socketChannel = MainApplication.s_socketChannel;
+		if(socketChannel != null && socketChannel.isConnected()) {
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					try {
+						RequestMessage requestMessage = SocketManager.getInstance().createRequestMessage(
+								cmd, 
+								null, 
+								mtv, 
+								null,
+								System.currentTimeMillis());
+						SocketManager.getInstance().writeRequestMessage(socketChannel, requestMessage);
+					} catch (SocketException e) {
+						e.printStackTrace();
+					}
+				}
+			}).start();
+		}else {
+			AppMsg.makeText(mActivity, "没有连接电视，请先扫描二维码!", AppMsg.STYLE_ALERT)
+			.setLayoutGravity(Gravity.TOP)
+			.show();
+		}
+	}
+	
+	private static class ViewHolder {
+		TextView tvDetailMtvSerialIndex;
+		TextView tvDetailMtvArtist;
+		TextView tvDetailMtvName;
+		View btDetailPlayMtv;
+		View btDetailAddMtv;
+	}
+
+}

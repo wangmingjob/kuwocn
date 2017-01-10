@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llSingMtvControllerBarBottom"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:background="@drawable/sing_controller_bar_bottom"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/ivSingControllerLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sing_controller_left" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <!-- 原唱 -->
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/ivSingMenuOriginalMtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/play_menu_divide"
+                    android:layout_marginRight="@dimen/play_menu_divide"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    android:scaleType="fitXY"
+                     />
+
+                <!-- 伴唱 -->
+
+                <ImageView
+                    android:id="@+id/ivSingMenuAccompMtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/play_menu_divide"
+                    android:layout_marginRight="@dimen/play_menu_divide"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    android:scaleType="fitXY"
+                     />
+            </FrameLayout>
+
+            <!-- 打分 -->
+
+            <ImageView
+                android:id="@+id/ivSingMenuScoreMtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/play_menu_divide"
+                android:layout_marginRight="@dimen/play_menu_divide"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="false"
+                android:scaleType="fitXY" />
+
+            <!-- 重唱 -->
+
+            <ImageView
+                android:id="@+id/ivSingMenuReplayMtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/play_menu_divide"
+                android:layout_marginRight="@dimen/play_menu_divide"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="false"
+                android:scaleType="fitXY" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <!-- 暂停 -->
+
+                <ImageView
+                    android:id="@+id/ivSingMenuPauseMtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/play_menu_divide"
+                    android:layout_marginRight="@dimen/play_menu_divide"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    android:scaleType="fitXY" />
+
+                <!-- 播放 -->
+
+                <ImageView
+                    android:id="@+id/ivSingMenuPlayMtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/play_menu_divide"
+                    android:layout_marginRight="@dimen/play_menu_divide"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    android:scaleType="fitXY" />
+            </FrameLayout>
+
+            <!-- 切歌 -->
+
+            <ImageView
+                android:id="@+id/ivSingMenuSwitchMtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/play_menu_divide"
+                android:layout_marginRight="@dimen/play_menu_divide"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="false"
+                android:scaleType="fitXY" />
+
+          <!-- 已点 -->
+
+           <ImageView
+                android:id="@+id/ivSingMenuOrderedMtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/play_menu_divide"
+                android:layout_marginRight="@dimen/play_menu_divide"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="false"
+                android:scaleType="fitXY" />
+
+            <!-- 点歌台 -->
+
+            <ImageView
+                android:id="@+id/ivSingMenuMtvPlatform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/play_menu_divide"
+                android:layout_marginRight="@dimen/play_menu_divide"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="false"
+                android:scaleType="fitXY" />
+            
+        </LinearLayout>
+
+        <!-- sing slidebar -->
+
+        <ImageView
+            android:id="@+id/ivSingMenuSlidebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/play_menu_divide"
+            android:layout_marginRight="@dimen/play_menu_divide"
+            android:src="@drawable/sing_slidebar" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivSingControllerRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sing_controller_right" />
+
+</LinearLayout>

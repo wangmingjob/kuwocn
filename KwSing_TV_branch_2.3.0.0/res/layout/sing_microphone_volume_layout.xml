@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
+    android:background="@drawable/sing_volume_bg"
+    android:orientation="vertical" >
+    
+    <ImageView 
+        android:id="@+id/ivSingMicrophoneVolumeAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/sing_volume_add"
+        />
+    
+    <cn.kuwo.sing.tv.utils.VolumeSeekBar
+        android:id="@+id/vsb_sing_microphone_volume"
+        android:layout_width="wrap_content"
+        android:layout_height="330dp"
+        android:layout_below="@id/ivSingMicrophoneVolumeAdd"
+        android:layout_centerHorizontal="true"
+        android:progressDrawable="@drawable/seekbar_style"
+        android:thumb="@null"
+        android:max="100"
+        android:progress="35" />
+    
+    <ImageView 
+        android:id="@+id/ivSingMicrophoneVolumeDecrease"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vsb_sing_microphone_volume"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/sing_volume_decrease"
+        />
+
+    <TextView 
+        android:id="@+id/tv_sing_microphone_volume_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:layout_centerHorizontal="true"
+        android:layout_below="@id/ivSingMicrophoneVolumeDecrease"
+        android:text="32"
+        />
+</RelativeLayout>

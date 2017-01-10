@@ -1,0 +1,83 @@
+# To enable ProGuard in your project, edit project.properties
+# to define the proguard.config property as described in that file.
+#
+# Add project specific ProGuard rules here.
+# By default, the flags in this file are appended to flags specified
+# in ${sdk.dir}/tools/proguard/proguard-android.txt
+# You can edit the include path and order by changing the ProGuard
+# include property in project.properties.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# Add any project specific keep options here:
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+
+
+
+-dontwarn
+-ignorewarnings
+
+-dontskipnonpubliclibraryclassmembers
+-dontskipnonpubliclibraryclasses
+
+-libraryjars libs/commons-io-2.4.jar
+-libraryjars libs/eventbus.jar
+-libraryjars libs/universal-image-loader-1.8.4.jar
+-libraryjars libs/umeng_sdk.jar
+-libraryjars libs/android-support-v4.jar
+
+#umeng
+-keepclassmembers class * {
+   public <init>(org.json.JSONObject);
+}
+-keep public class cn.kuwo.sing.R$*{
+    public static final int *;
+}
+-keep public class com.umeng.fb.ui.ThreadView {
+}
+
+-keepclassmembers class * extends cn.kuwo.sing.tv.view.activity.BaseActivity {
+	protected void *(android.os.Message);
+}
+
+-keepclassmembers class * extends cn.kuwo.sing.tv.view.activity.BaseFragmentActivity {
+	protected void *(android.os.Message);
+}
+
+-keepclassmembers class ** {
+    public void onEvent*(**);
+}
+
+-keep public class cn.kuwo.sing.tv.view.fragment.SecondItemListFragment {*;}
+
+-keep public class cn.kuwo.sing.tv.controller.PlayController {*;}
+-keep public class cn.kuwo.sing.tv.controller.PinyinOrderController {*;}
+
+-keep public class cn.kuwo.sing.tv.controller.SingController {*;}
+-keep public class cn.kuwo.sing.tv.controller.OrderedMtvController {*;}
+-keep public class cn.kuwo.sing.tv.controller.DetailController {*;}
+-keep public class cn.kuwo.sing.tv.controller.SingerController {*;}
+
+#jars
+-keep class com.coremedia.iso.gui.**{*;}
+-keep class org.jdesktop.application.**{*;}
+-keep class com.coremedia.**{*;}
+-keep class android.support.v4.**{*;}
+-keep class com.aispeech.**{*;}
+-keep class de.greenrobot.event.**{*;}
+-keep class io.vov.utils.** { *; }
+-keep class io.vov.vitamio.** { *; }
+-keep class com.coremedia.iso.gui.GenericBoxPane$1
+-keep class com.mstar.android.**{*;}
+
+-keep class cn.kuwo.sing.tv.context.Persistence
+-keep class cn.kuwo.sing.tv.bean.** {
+*;
+}
+
+#for crash info
+-keepattributes SourceFile,LineNumberTable

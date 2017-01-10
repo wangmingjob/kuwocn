@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+<!--     <io.vov.vitamio.widget.CenterLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <io.vov.vitamio.widget.VideoView
+            android:id="@+id/vvPlayUserMtv"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+    </io.vov.vitamio.widget.CenterLayout> -->
+    
+    <RelativeLayout
+	    android:id="@+id/rlPlayUser_SysVideoView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#000000"
+        android:orientation="vertical" >
+		<cn.kuwo.sing.tv.view.widget.SysVideoView
+	        android:id="@+id/playuser_syssurface"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />  
+	</RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llPlayUserMtvBufferFail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dp"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/play_buffer_fail"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="视频缓冲失败:("
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivPlayUserMtvBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/black"
+        android:scaleType="fitXY"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/ivPlayUserMtvPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/play_mtv_normal"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/llPlayUserMtvWaiting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <cn.kuwo.sing.tv.utils.WaitingProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#fff"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvPlayUserMtvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:maxLength="@integer/item_text_len"
+        android:singleLine="true"
+        android:text="歌曲名称"
+        android:textColor="#00B8F6"
+        android:textSize="38sp" />
+
+    <TextView
+        android:id="@+id/tvPlayUserMtvArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvPlayUserMtvName"
+        android:layout_centerHorizontal="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:maxLength="@integer/item_text_len"
+        android:singleLine="true"
+        android:text="歌手名"
+        android:textColor="@android:color/white"
+        android:textSize="32sp" />
+
+    <LinearLayout
+        android:id="@+id/llPlayUserMtvVolumeController"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/progessdialog_bg"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="音	量： "
+            android:textColor="@android:color/white"
+            android:textSize="32sp" />
+
+        <SeekBar
+            android:id="@+id/sbPlayUserMtvVolume"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:maxHeight="15dp"
+            android:minHeight="15dp"
+            android:max="100"
+            android:progress="38"
+            android:progressDrawable="@drawable/seekbar_style"
+            android:thumb="@null" />
+
+        <TextView
+            android:id="@+id/tvPlayUserMtvVolumeValue"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="right"
+            android:text="38"
+            android:textColor="@android:color/white"
+            android:textSize="28sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvPlayUserMtvLyric"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_above="@+id/rlPlayUserMtvController"
+        android:gravity="center_horizontal"
+        android:text="正在努力的加载..."
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/rlPlayUserMtvController"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/sing_controller_bar_top" >
+
+        <SeekBar
+            android:id="@+id/sbPlayUserMtvController"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:focusable="false"
+            android:max="100"
+            android:layout_toRightOf="@+id/tvPlayUserMtvControllerPlayedTime"
+            android:layout_toLeftOf="@+id/tvPlayUserMtvControllerTotalTime"
+            android:maxHeight="13dp"
+            android:minHeight="13dp"
+            android:paddingLeft="4.5dp"
+            android:paddingRight="4.5dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:progressDrawable="@drawable/seekbar_style"
+            android:thumb="@drawable/sing_controller_seekbar_bg"
+            android:thumbOffset="10dp" />
+
+        <TextView
+            android:id="@+id/tvPlayUserMtvControllerPlayedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="00:00"
+            android:textColor="#00B8F6"
+            android:textSize="27sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tvPlayUserMtvControllerTotalTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="00:00"
+            android:textColor="#ffffff"
+            android:textSize="27sp"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+</RelativeLayout>

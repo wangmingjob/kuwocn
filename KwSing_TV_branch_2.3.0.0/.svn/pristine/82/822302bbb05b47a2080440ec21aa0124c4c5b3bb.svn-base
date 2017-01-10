@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/ll_ordered_mtv_item"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/list_item_bg_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/ordered_mtv_item_margin_left"
+        android:layout_marginRight="@dimen/ordered_mtv_item_margin_right"
+        android:paddingBottom="@dimen/ordered_mtv_item_padding_bottom"
+        android:paddingTop="@dimen/ordered_mtv_item_padding_top" >
+
+        <TextView
+            android:id="@+id/tvOrderedMtvSerialIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ordered_mtv_item_index_margin_left"
+            android:layout_marginRight="@dimen/ordered_mtv_item_index_margin_right"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="111"
+            android:textColor="@drawable/item_color"
+            android:textSize="@dimen/item_text_index" />
+
+        <ImageView
+            android:id="@+id/ivOrderedMtvPlayingLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/ordered_mtv_item_playlogo_margin_left"
+            android:src="@drawable/song_playing"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvOrderedMtvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ordered_mtv_item_name_margin_left"
+            android:layout_marginRight="@dimen/ordered_mtv_item_name_margin_right"
+            android:layout_weight="2"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLength="@integer/item_text_len"
+            android:singleLine="true"
+            android:text="十二生肖已点歌曲列表，无法滑动已点歌曲列表，无法滑动已点歌曲列表，"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/item_text" />
+
+        <TextView
+            android:id="@+id/tvOrderedMtvArtist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLength="12"
+            android:singleLine="true"
+            android:text="王力宏"
+            android:textColor="@drawable/item_color"
+            android:textSize="@dimen/item_text" />
+
+        <ImageView
+            android:id="@+id/btMtvSing"
+            android:layout_width="@dimen/bt_operation_width"
+            android:layout_height="@dimen/bt_operation_height"
+            android:background="@drawable/song_mtv_selector"
+            android:nextFocusLeft="@id/rbPinyinOrder" />
+
+        <ImageView
+            android:id="@+id/btMtvTop"
+            android:layout_width="@dimen/bt_operation_width"
+            android:layout_height="@dimen/bt_operation_height"
+            android:background="@drawable/top_mtv_selector" />
+
+        <ImageView
+            android:id="@+id/btMtvDelete"
+            android:layout_width="@dimen/bt_operation_width"
+            android:layout_height="@dimen/bt_operation_height"
+            android:layout_marginRight="@dimen/bt_operation_margin_right"
+            android:background="@drawable/delete_mtv_selector" />
+    </LinearLayout>
+    
+    <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/ordered_mtv_item_divider_margin_left"
+        android:layout_marginRight="@dimen/ordered_mtv_item_divider_margin_right"
+        android:layout_below="@id/ll_ordered_mtv_item"
+        android:src="@drawable/list_item_divider"
+        />
+
+</RelativeLayout>

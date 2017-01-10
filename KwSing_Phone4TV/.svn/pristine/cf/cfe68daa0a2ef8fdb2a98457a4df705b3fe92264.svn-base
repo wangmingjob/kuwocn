@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="NewApi" severity="ignore">
+        <ignore path="src/com/google/zxing/client/android/result/AddressBookResultHandler.java" />
+        <ignore path="src/com/google/zxing/client/android/result/ResultHandler.java" />
+        <ignore path="src/com/google/zxing/client/android/result/WifiResultHandler.java" />
+        <ignore path="src/com/google/zxing/client/android/result/supplement/BookResultInfoRetriever.java" />
+        <ignore path="src/com/google/zxing/client/android/share/ShareActivity.java" />
+    </issue>
+</lint>

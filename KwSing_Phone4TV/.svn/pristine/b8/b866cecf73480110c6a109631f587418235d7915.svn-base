@@ -1,0 +1,461 @@
+/**
+ * Copyright (c) 2005, Kuwo, Inc. All rights reserved. 
+ */
+package cn.kuwo.sing.phone4tv.view.fragment;
+
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.text.format.DateUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import cn.kuwo.sing.phone4tv.R;
+import cn.kuwo.sing.phone4tv.bean.ImageObject;
+import cn.kuwo.sing.phone4tv.bean.PageData;
+import cn.kuwo.sing.phone4tv.business.ListBusiness;
+import cn.kuwo.sing.phone4tv.commmons.log.LogSystem;
+import cn.kuwo.sing.phone4tv.commons.context.Constants;
+import cn.kuwo.sing.phone4tv.commons.util.PageDataHandler;
+import cn.kuwo.sing.phone4tv.commons.util.CommonUtils.AnimateFirstDisplayListener;
+import cn.kuwo.sing.phone4tv.view.activity.DetailActivity;
+import cn.kuwo.sing.phone4tv.view.adapter.ImageObjectAdapter;
+
+import com.devspark.appmsg.AppMsg;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.ObjectAnimator;
+
+
+/**
+ * 
+ * @Package cn.kuwo.sing.phone4tv.view.fragment
+ * 
+ * @Date Mar 6, 2014 4:09:33 PM
+ *
+ * @Author wangming
+ * 
+ * @Parameters ImageObject imageObject;
+ *
+ */
+public class SingerFragment extends BaseProgressFragment {
+	private static final String LOG_TAG = "SingerFragment";
+	private View mContentView;
+	private ListBusiness mListBusiness;
+	private ImageObject mImageObject;
+	private int mCurrentPageNum = 1;
+	private int mTotalPage = 1;
+	private int mCurrentPageNum4Search = 1;
+	private int mTotalPage4Search = 1;
+	private ImageObjectAdapter mImageObjectAdapter;
+	private ImageObjectAdapter mImageObjectAdapter4Search;
+	private PullToRefreshGridView mPullRefreshGridView;
+	private PullToRefreshGridView mPullRefreshGridView4Search;
+	private Interpolator accelerator = new AccelerateInterpolator();
+	private Interpolator decelerator = new DecelerateInterpolator();
+	private boolean mSearchViewVisible = false;
+	private RelativeLayout rlFragmentSinger;
+	private RelativeLayout rlFragmentSingerSearch;
+	private TextView empty;
+	private String mKeyword;
+	
+	
+	public void loadSingerListBySearch(String keyword) {
+		if(!mSearchViewVisible) {
+			flipAnimation(rlFragmentSinger, rlFragmentSingerSearch);
+		}
+		mSearchViewVisible = true;
+		mKeyword = keyword;
+		loadSingerListBySearch(keyword, 1);
+	}
+	
+	public void turnBack() {
+		if(getActivity() != null)
+			getActivity().setTitle(mImageObject.name+"  [ "+mCurrentPageNum+"/"+mTotalPage+" ]");
+			
+		if(mSearchViewVisible) {
+			flipAnimation(rlFragmentSingerSearch, rlFragmentSinger);
+		}
+		mSearchViewVisible  = false;
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		mContentView = inflater.inflate(R.layout.fragment_singer, null);
+		return inflater.inflate(R.layout.fragment_progress_empty, container, false);
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		// Setup content view
+		setContentView(mContentView);
+		// Setup text for empty content
+		setEmptyText(R.string.load_data_fail);
+		
+		initData();
+		initView();
+		obtainData();
+	}
+
+	private void initData() {
+		mListBusiness = new ListBusiness();
+		Intent data = getActivity().getIntent();
+		mImageObject = (ImageObject) data.getSerializableExtra("imageObject");
+		getActivity().setTitle(mImageObject.name);
+	}
+	
+	private void initView() {
+		rlFragmentSinger = (RelativeLayout)getActivity().findViewById(R.id.rlFragmentSinger);
+		rlFragmentSinger.setVisibility(View.VISIBLE);
+		mPullRefreshGridView = (PullToRefreshGridView) getActivity().findViewById(R.id.gvFragmentSinger);
+		mPullRefreshGridView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<GridView>() {
+			@Override
+			public void onRefresh(PullToRefreshBase<GridView> refreshView) {
+				String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(),
+						DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+				// Update the LastUpdatedLabel
+				refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+
+				// Do work to refresh the list here.
+				switch (refreshView.getCurrentMode()) {
+				case PULL_FROM_START:
+					toRefresh();
+					break;
+				case PULL_FROM_END:
+					toLoadMore();
+					break;
+
+				default:
+					break;
+				}
+			}
+		});
+		mPullRefreshGridView.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
+
+			@Override
+			public void onLastItemVisible() {
+				if(mTotalPage == mCurrentPageNum)
+					AppMsg.makeText(getActivity(), "亲，没有更多了", AppMsg.STYLE_CONFIRM)
+					.setLayoutGravity(Gravity.TOP)
+					.show();
+			}
+		});
+
+		GridView actualGridView = mPullRefreshGridView.getRefreshableView();
+		mImageObjectAdapter = new ImageObjectAdapter(getActivity(), new AnimateFirstDisplayListener());
+		SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mImageObjectAdapter, 
+				Constants.LIST_ITEM_ANIMATION_DELAY, Constants.LIST_ITEM_ANIMATION_DURATION);
+		swingBottomInAnimationAdapter.setAbsListView(actualGridView);
+		actualGridView.setAdapter(swingBottomInAnimationAdapter);
+		
+		actualGridView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				ImageObject currentImageObject = (ImageObject) mImageObjectAdapter.getItem(position);
+				Intent intent = new Intent(getActivity(), DetailActivity.class);
+				intent.putExtra("pageFrom", Constants.PAGE_FROM_SINGER);
+				intent.putExtra("imageObject", currentImageObject);
+				getActivity().startActivity(intent);
+			}
+		});
+		
+		//===============Search
+		rlFragmentSingerSearch = (RelativeLayout)getActivity().findViewById(R.id.rlFragmentSingerSearch);
+		rlFragmentSingerSearch.setVisibility(View.GONE);
+		mPullRefreshGridView4Search = (PullToRefreshGridView) getActivity().findViewById(R.id.gvFragmentSingerSearch);
+		mPullRefreshGridView4Search.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<GridView>() {
+			@Override
+			public void onRefresh(PullToRefreshBase<GridView> refreshView) {
+				String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(),
+						DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+				// Update the LastUpdatedLabel
+				refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+
+				// Do work to refresh the list here.
+				switch (refreshView.getCurrentMode()) {
+				case PULL_FROM_START:
+					toRefresh4Search();
+					break;
+				case PULL_FROM_END:
+					toLoadMore4Search();
+					break;
+
+				default:
+					break;
+				}
+			}
+		});
+		mPullRefreshGridView4Search.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
+
+			@Override
+			public void onLastItemVisible() {
+				if(mTotalPage4Search == mCurrentPageNum4Search)
+					AppMsg.makeText(getActivity(), "亲，没有更多了", AppMsg.STYLE_CONFIRM)
+					.setLayoutGravity(Gravity.TOP)
+					.show();
+			}
+		});
+
+		GridView actualGridView4Search = mPullRefreshGridView4Search.getRefreshableView();
+		mImageObjectAdapter4Search = new ImageObjectAdapter(getActivity(), new AnimateFirstDisplayListener());
+		SwingBottomInAnimationAdapter swingBottomInAnimationAdapter4Search = new SwingBottomInAnimationAdapter(mImageObjectAdapter4Search, 
+				Constants.LIST_ITEM_ANIMATION_DELAY, Constants.LIST_ITEM_ANIMATION_DURATION);
+		swingBottomInAnimationAdapter4Search.setAbsListView(actualGridView4Search);
+		actualGridView4Search.setAdapter(swingBottomInAnimationAdapter4Search);
+		
+		actualGridView4Search.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				ImageObject currentImageObject = (ImageObject) mImageObjectAdapter4Search.getItem(position);
+				Intent intent = new Intent(getActivity(), DetailActivity.class);
+				intent.putExtra("pageFrom", Constants.PAGE_FROM_SINGER);
+				intent.putExtra("imageObject", currentImageObject);
+				getActivity().startActivity(intent);
+			}
+		});
+		
+		empty = (TextView)getActivity().findViewById(android.R.id.empty);
+		empty.setOnClickListener(mOnClickListener);
+	}
+	
+	private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case android.R.id.empty:
+				toRefresh();
+				break;
+
+			default:
+				break;
+			}
+		}
+	};
+
+	private void obtainData() {
+		setContentShown(false);
+		loadSingerList(1);
+	}
+	
+	private void flipAnimation(final View fromView, final View toView) {
+		ObjectAnimator visToInvis = ObjectAnimator.ofFloat(fromView, "rotationY", 0f, 90f);
+		visToInvis.setDuration(500);
+		visToInvis.setInterpolator(accelerator);
+		final ObjectAnimator invisToVis = ObjectAnimator.ofFloat(toView, "rotationY", -90f, 0f);
+		invisToVis.setDuration(500);
+		invisToVis.setInterpolator(decelerator);
+		
+		visToInvis.addListener(new AnimatorListenerAdapter() {
+
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				fromView.setVisibility(View.GONE);
+				invisToVis.start();
+				toView.setVisibility(View.VISIBLE);
+			}
+		});
+		visToInvis.start();
+		
+		fromView.setVisibility(View.GONE);
+		toView.setVisibility(View.VISIBLE);
+	}
+	
+	private void toRefresh() {
+		mImageObjectAdapter.clearImageObjectList();
+		loadSingerList(1);
+	}
+	
+	private void toLoadMore() {
+		if(mCurrentPageNum == mTotalPage) {
+			AppMsg.makeText(getActivity(), "亲，没有更多了", AppMsg.STYLE_CONFIRM)
+			.setLayoutGravity(Gravity.TOP)
+			.show();
+			mPullRefreshGridView.onRefreshComplete();
+		}else {
+			loadSingerList(mCurrentPageNum+1);
+		}
+	}
+	
+	private void toRefresh4Search() {
+		mImageObjectAdapter4Search.clearImageObjectList();
+		loadSingerListBySearch(mKeyword, 1);
+	}
+	
+	private void toLoadMore4Search() {
+		if(mCurrentPageNum4Search == mTotalPage4Search) {
+			AppMsg.makeText(getActivity(), "亲，没有更多了", AppMsg.STYLE_CONFIRM)
+			.setLayoutGravity(Gravity.TOP)
+			.show();
+			mPullRefreshGridView4Search.onRefreshComplete();
+		}else {
+			loadSingerListBySearch(mKeyword, mCurrentPageNum4Search+1);
+		}
+	}
+	
+	
+	private void loadSingerList(int pageNum) {
+		mListBusiness.getSingerPageData(mImageObject.id, pageNum, new SingerDataHandler());
+	}
+	
+	private void loadSingerListBySearch(String keyword, int pageNum) {
+		mListBusiness.getSingerListPageDataByKeyword(mImageObject.inner, keyword, pageNum, new SingerBySearchDataHandler());
+	}
+	
+	private class SingerBySearchDataHandler extends PageDataHandler<ImageObject> {
+
+		@Override
+		public void onSuccess(PageData<ImageObject> data) {
+			mTotalPage4Search = 1;
+			if(data.total <= Constants.PAGE_SIZE_SINGER_LIST)
+				mTotalPage4Search = 1;
+			else
+				mTotalPage4Search = (data.total%Constants.PAGE_SIZE_SINGER_LIST == 0) ? 
+						data.total/Constants.PAGE_SIZE_SINGER_LIST 
+						: (data.total/Constants.PAGE_SIZE_SINGER_LIST+1);
+			mCurrentPageNum4Search = data.page;
+			mImageObjectAdapter4Search.setImageObjectData(mCurrentPageNum4Search, data.data);
+			if(getActivity() != null)
+				getActivity().setTitle(mKeyword+"  [ "+mCurrentPageNum4Search+"/"+mTotalPage4Search+" ]");
+			if(Build.VERSION.SDK_INT >= 14)
+				setContentEmpty(false);
+			setContentShown(true);
+			
+			new Handler().postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					mPullRefreshGridView4Search.onRefreshComplete();
+				}
+			}, Constants.PTR_SHOW_DELAY_TIME);
+		}
+		
+		@Override
+		public void onFailure() {
+			LogSystem.e(LOG_TAG, "SingerBySearchDataHandler onFailure");
+			AppMsg.makeText(getActivity(), "无查询结果", AppMsg.STYLE_ALERT)
+			.setLayoutGravity(Gravity.TOP)
+			.show();
+			if(mCurrentPageNum == 1) {
+				if(Build.VERSION.SDK_INT >= 14)
+					setContentEmpty(true);
+			}else {
+				AppMsg.makeText(getActivity(), "加载数据失败，请检查您的网络", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+			}
+			
+			new Handler().postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					mPullRefreshGridView4Search.onRefreshComplete();
+				}
+			}, Constants.PTR_SHOW_DELAY_TIME);
+		}
+		
+		@Override
+		public void onFailure(Throwable error, String content) {
+			LogSystem.e(LOG_TAG, "SingerBySearchDataHandler onFailure, content="+content);
+			if(mCurrentPageNum == 1) {
+				if(Build.VERSION.SDK_INT >= 14)
+					setContentEmpty(true);
+			}else {
+				AppMsg.makeText(getActivity(), "加载数据失败，请检查您的网络", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+			}
+			
+			new Handler().postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					mPullRefreshGridView4Search.onRefreshComplete();
+				}
+			}, Constants.PTR_SHOW_DELAY_TIME);
+		}
+		
+		@Override
+		public void onFinish() {
+			new Handler().postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					mPullRefreshGridView4Search.onRefreshComplete();
+				}
+			}, Constants.PTR_SHOW_DELAY_TIME);
+		}
+	}
+	
+	private class SingerDataHandler extends PageDataHandler<ImageObject> {
+		@Override
+		public void onSuccess(PageData<ImageObject> data) {
+			LogSystem.d(LOG_TAG, "SingerDataHandler onSuccess, pageData="+data.data);
+			mCurrentPageNum = data.page;
+			mTotalPage = (data.total%Constants.PAGE_SIZE_SINGER_LIST == 0) ? 
+					data.total/Constants.PAGE_SIZE_SINGER_LIST 
+					: (data.total/Constants.PAGE_SIZE_SINGER_LIST+1);
+			mImageObjectAdapter.setImageObjectData(mCurrentPageNum, data.data);
+			if(getActivity() != null) {
+				getActivity().setTitle(mImageObject.name+"  [ "+mCurrentPageNum+"/"+mTotalPage+" ]");
+			}
+			if(Build.VERSION.SDK_INT >= 14)
+				setContentEmpty(false);
+			setContentShown(true);
+		}
+		
+		@Override
+		public void onFailure(Throwable error, String content) {
+			LogSystem.e(LOG_TAG, "SingerDataHandler onFailure, content="+content);
+			if(mCurrentPageNum == 1) {
+				if(Build.VERSION.SDK_INT >= 14)
+					setContentEmpty(true);
+			}else {
+				AppMsg.makeText(getActivity(), "加载数据失败，请检查您的网络", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+			}
+		}
+		
+		@Override
+		public void onFinish() {
+			new Handler().postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					mPullRefreshGridView.onRefreshComplete();
+				}
+			}, Constants.PTR_SHOW_DELAY_TIME);
+		}
+
+	}
+}

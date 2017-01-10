@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:paddingTop="15dp" >
+
+    <include
+        android:id="@+id/inPinyinOrder"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        layout="@layout/pinyin_order_search_layout" />
+    <!-- android:background="@drawable/search_prompt_listview_shape" -->
+
+    <ListView
+        android:id="@+id/lv_pinyin_order_search_prompt"
+        style="@style/CustomListView"
+        android:layout_width="@dimen/pinyin_order_suggest_listview_width"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inPinyinOrder"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/list_border_bg_old"
+        android:focusable="true"
+        android:nextFocusDown="@id/lv_pinyin_order_search_prompt"
+        android:nextFocusUp="@+id/btPinyinOrderSeachGo" />
+
+    <RelativeLayout
+        android:id="@+id/rlPinyinOrderHotKeywordView"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/pinyin_order_hot_keyword_view_margin_top"
+        android:layout_below="@id/inPinyinOrder" >
+
+        <TextView
+            android:id="@+id/tvPinyinOrderHotKeyword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:text="热门搜索"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/pinyin_order_search_hot_keyword_prompt_textSize" />
+
+        <GridView
+            android:id="@+id/gvPinyinOrderHotKeyword"
+            android:layout_width="@dimen/pinyin_order_hotkeyword_gridview_width"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/tvPinyinOrderHotKeyword"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/pinyin_order_hot_keyword_gridview_margin_top"
+            android:gravity="center"
+            android:horizontalSpacing="@dimen/pinyin_order_hot_keyword_gridview_vertical_space"
+            android:cacheColorHint="#00000000"
+            android:listSelector="#00000000"
+            android:nextFocusDown="@+id/gvPinyinOrderHotKeyword"
+            android:nextFocusLeft="@+id/rbPinyinOrder"
+            android:nextFocusRight="@+id/gvPinyinOrderHotKeyword"
+            android:numColumns="2"
+            android:scrollbarFadeDuration="0"
+            android:scrollbars="none"
+            android:verticalSpacing="@dimen/pinyin_order_hot_keyword_gridview_vertical_space"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlPinyinOrderResultPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inPinyinOrder" >
+
+        <TextView
+            android:id="@+id/tvPinyinOrderInputContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="“pinyin”"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_pinyin_order_input_content" />
+
+        <TextView
+            android:id="@+id/tvPinyinOrderSearchPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvPinyinOrderInputContent"
+            android:text="的筛选结果："
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_pinyin_order_input_content" />
+
+        <TextView
+            android:id="@+id/tvPinyinOrderSearchResultNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvPinyinOrderSearchPrompt"
+            android:text="0个"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_pinyin_order_input_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/rlPinyinOrderResultPrompt"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@+id/flPinyinOrderResult"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <ListView
+                android:id="@+id/lvPinyinOrder"
+                style="@style/CustomListView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:nextFocusDown="@+id/btPinyinOrderNextPage"
+                android:nextFocusLeft="@id/rbPinyinOrder"
+                android:scrollbars="vertical" />
+
+            <TextView
+                android:id="@+id/tvPinyinNoDataPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="亲，木有搜索到任何视频:("
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/textSize_pinyin_order_no_data"
+                android:visibility="invisible" />
+
+            <LinearLayout
+                android:id="@+id/llPinyinOrderRequestFail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="网络数据请求失败 :("
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textSize_network_error" />
+
+                <Button
+                    android:id="@+id/btPinyinOrderRequestFail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/bt_retry_selector"
+                    android:nextFocusDown="@+id/btPinyinOrderRequestFail"
+                    android:nextFocusLeft="@id/rbPinyinOrder"
+                    android:nextFocusUp="@+id/btPinyinOrderSeachGo" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar_pinyin_order"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="false"
+                android:indeterminateDrawable="@anim/loading_progress_bar"
+                android:visibility="visible" />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlPinyinOrderPagerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp" >
+
+            <Button
+                android:id="@+id/btPinyinOrderPreviousPage"
+                android:layout_width="@dimen/bt_page_width"
+                android:layout_height="@dimen/bt_page_height"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/bt_pre_page_selector"
+                android:nextFocusLeft="@id/rbPinyinOrder"
+                android:nextFocusUp="@+id/lvPinyinOrder"
+                android:nextFocusDown="@+id/btPinyinOrderPreviousPage"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/textSize_button_page" />
+
+            <TextView
+                android:id="@+id/tvPinyinOrderPagePrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/bt_page_content_margin_left"
+                android:layout_marginRight="@dimen/bt_page_content_margin_right"
+                android:layout_toRightOf="@id/btPinyinOrderPreviousPage"
+                android:text="0/0"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/textSize_page_content" />
+
+            <Button
+                android:id="@+id/btPinyinOrderNextPage"
+                android:layout_width="@dimen/bt_page_width"
+                android:layout_height="@dimen/bt_page_height"
+                android:layout_toRightOf="@id/tvPinyinOrderPagePrompt"
+                android:background="@drawable/bt_next_page_selector"
+                android:nextFocusLeft="@+id/btPinyinOrderPreviousPage"
+                android:nextFocusRight="@+id/btPinyinOrderSeachBack"
+                android:nextFocusUp="@+id/lvPinyinOrder"
+                android:nextFocusDown="@+id/btPinyinOrderNextPage"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/textSize_button_page" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

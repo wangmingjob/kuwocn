@@ -1,0 +1,65 @@
+# view res/layout/dialog_microphone_help.xml #generated:25
+-keep class android.support.v4.view.ViewPager { <init>(...); }
+
+# view AndroidManifest.xml #generated:33
+-keep class cn.kuwo.sing.tv.context.MainApplication { <init>(...); }
+
+# view AndroidManifest.xml #generated:102
+-keep class cn.kuwo.sing.tv.socket.NioServerService { <init>(...); }
+
+# view AndroidManifest.xml #generated:93
+-keep class cn.kuwo.sing.tv.utils.NetworkChangeReceiver { <init>(...); }
+
+# view res/layout/sing_accomp_volume_layout.xml #generated:21
+# view res/layout/sing_microphone_volume_layout.xml #generated:21
+-keep class cn.kuwo.sing.tv.utils.VolumeSeekBar { <init>(...); }
+
+# view res/layout/play_activity.xml #generated:84
+# view res/layout/play_user_mtv_activity.xml #generated:79
+-keep class cn.kuwo.sing.tv.utils.WaitingProgressBar { <init>(...); }
+
+# view AndroidManifest.xml #generated:45
+-keep class cn.kuwo.sing.tv.view.activity.EntryActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:57
+-keep class cn.kuwo.sing.tv.view.activity.ItemListActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:70
+-keep class cn.kuwo.sing.tv.view.activity.PlayActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:78
+-keep class cn.kuwo.sing.tv.view.activity.PlayUserMtvActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:65
+-keep class cn.kuwo.sing.tv.view.activity.SecondItemListActivity { <init>(...); }
+
+# view res/layout/item_list_activity.xml #generated:1
+# view res/layout/item_twopane_activity.xml #generated:17
+-keep class cn.kuwo.sing.tv.view.fragment.ItemListFragment { <init>(...); }
+
+# view res/layout/item_list_second_activity.xml #generated:1
+# view res/layout/item_twopane_second_activity.xml #generated:13
+-keep class cn.kuwo.sing.tv.view.fragment.SecondItemListFragment { <init>(...); }
+
+# view res/layout/dialog_microphone_help.xml #generated:32
+-keep class cn.kuwo.sing.tv.view.widget.CirclePageIndicator { <init>(...); }
+
+# view res/layout/pinyin_order_search_layout.xml #generated:33
+-keep class cn.kuwo.sing.tv.view.widget.LetterView { <init>(...); }
+
+# view res/layout/play_activity.xml #generated:27
+# view res/layout/play_user_mtv_activity.xml #generated:25
+-keep class cn.kuwo.sing.tv.view.widget.SysVideoView { <init>(...); }
+
+# view res/layout/play_activity.xml #generated:207
+-keep class cn.kuwo.sing.tv.view.widget.WaveView { <init>(...); }
+
+# view AndroidManifest.xml #generated:85
+-keep class io.vov.vitamio.activity.InitActivity { <init>(...); }
+
+# view res/layout/play_activity.xml #generated:6
+-keep class io.vov.vitamio.widget.CenterLayout { <init>(...); }
+
+# view res/layout/play_activity.xml #generated:13
+-keep class io.vov.vitamio.widget.VideoView { <init>(...); }
+

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:background="#181215" >
+
+    <ScrollView
+        android:id="@+id/navigationScrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:focusable="false"
+        android:scrollbars="none" >
+
+        <RadioGroup
+            android:id="@+id/rgNavigation"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:nextFocusRight="@+id/lvSingOrderedMtv"
+            android:orientation="vertical" >
+
+            <!-- tab1 -->
+
+            <RadioButton
+                android:id="@+id/rbOrderedMtv"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/navigation_rb_height"
+                android:background="@drawable/ordered_mtv_selector"
+                android:button="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusDown="@+id/rbPinyinOrder"
+                android:tag="rbOrderedMtv" />
+
+            <!-- tab2 -->
+
+            <RadioButton
+                android:id="@+id/rbPinyinOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/navigation_rb_height"
+                android:background="@drawable/pinyin_order_selector"
+                android:button="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusDown="@+id/rbMtvCategory"
+                android:nextFocusRight="@+id/iv_pinyin_order_voice_controller"
+                android:nextFocusUp="@+id/rbOrderedMtv"
+                android:tag="rbPinyinOrder" />
+
+            <!-- tab3 -->
+
+            <RadioButton
+                android:id="@+id/rbMtvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/navigation_rb_height"
+                android:background="@drawable/mtv_category_selector"
+                android:button="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusDown="@+id/rbMtvCategoryOrder"
+                android:nextFocusUp="@+id/rbPinyinOrder"
+                android:tag="rbMtvCategory" />
+
+            <!-- tab4 -->
+            
+            <RadioButton
+                android:id="@+id/rbMtvCategoryOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/navigation_rb_height"
+                android:background="@drawable/mtv_category_order_selector"
+                android:button="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusDown="@+id/rbSingerCategory"
+                android:nextFocusUp="@+id/rbMtvCategory"
+                android:tag="rbMtvCategoryOrder" />
+
+            <!-- tab5 -->
+
+            <RadioButton
+                android:id="@+id/rbSingerCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/navigation_rb_height"
+                android:background="@drawable/singer_category_selector"
+                android:button="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusUp="@+id/rbMtvCategoryOrder"
+                android:tag="rbSingerCategory" />
+
+            <!-- tab6 -->
+
+            <RadioButton
+                android:id="@+id/rbMore"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/navigation_rb_height"
+                android:background="@drawable/more_selector"
+                android:button="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusUp="@+id/rbSingerCategory"
+                android:tag="rbMore" />
+        </RadioGroup>
+    </ScrollView>
+
+</FrameLayout>

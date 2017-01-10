@@ -1,0 +1,379 @@
+/**
+ * Copyright (c) 2013, FightingTime, Inc. All rights reserved. 
+ */
+package cn.kuwo.sing.phone4tv.view.fragment;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.text.format.DateUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
+import cn.kuwo.sing.phone4tv.R;
+import cn.kuwo.sing.phone4tv.bean.Mtv;
+import cn.kuwo.sing.phone4tv.bean.PageData;
+import cn.kuwo.sing.phone4tv.bean.SearchPromptObject;
+import cn.kuwo.sing.phone4tv.business.ListBusiness;
+import cn.kuwo.sing.phone4tv.commmons.log.LogSystem;
+import cn.kuwo.sing.phone4tv.commons.context.Constants;
+import cn.kuwo.sing.phone4tv.commons.util.PageDataHandler;
+import cn.kuwo.sing.phone4tv.view.adapter.DetailAdapter;
+import cn.kuwo.sing.phone4tv.view.adapter.HotKeywordListAdapter;
+import cn.kuwo.sing.phone4tv.view.adapter.SearchSuggestAdapter;
+
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.SearchView;
+import com.actionbarsherlock.widget.SearchView.OnQueryTextListener;
+import com.devspark.appmsg.AppMsg;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
+
+/**
+ * @Package cn.kuwo.sing.phone4tv.view.fragment
+ * 
+ * @Date Mar 12, 2014 10:56:19 AM
+ *
+ * @Author wangming
+ *
+ */
+public class SearchFragment extends BaseProgressFragment {
+
+	private static final String LOG_TAG = "SearchFragment";
+	private View mContentView;
+	private PullToRefreshListView mPullRefreshListView;
+	private DetailAdapter mSearchResultAdapter;
+	private int mCurrentPageNum = 1;
+	private int mTotalPage = -1;
+	private ListBusiness mListBusiness;
+	private ListView lvFragmentSearchHotKeyword;
+	private ListView lvFragmentSearchSuggest;
+	private HotKeywordListAdapter mHotKeywordListAdapter;
+	private SearchSuggestAdapter mSearchSuggestAdapter;
+	private String mKeyword;
+	private SearchView mSearchView;
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		//Create the search view
+        mSearchView = new SearchView(((SherlockFragmentActivity)getActivity()).getSupportActionBar().getThemedContext());
+        mSearchView.setOnQueryTextListener(new OnQueryTextListener() {
+			
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				mCurrentPageNum = 1;
+				mKeyword = query;
+				loadSearchResult(mKeyword, mCurrentPageNum);
+				return true;
+			}
+			
+			@Override
+			public boolean onQueryTextChange(String newText) {
+				if("".equals(newText)) {
+					loadSearchHotKeyword();
+				}else {
+					loadSearchSuggest(newText);
+				}
+				return true;
+			}
+		});
+
+		menu.add(Constants.MENU_GROUP_ID, Constants.MENU_ITEM_ID_SEARCH, Menu.NONE,Constants.MENU_ITEM_TITLE_SEARCH)
+		.setIcon(R.drawable.bt_search_selector)
+		.setActionView(mSearchView)
+		.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS); 
+		
+		setMenuVisibility(true);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			getActivity().finish();
+			getActivity().overridePendingTransition(android.R.anim.fade_in, R.anim.push_right_out);
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	private void loadSearchHotKeyword() {
+		setContentShown(false);
+		mListBusiness.getHotKeywordListPageData(new HotKeywordDataHandler());
+	}
+	
+	private void loadSearchSuggest(String keyword) {
+		setContentShown(false);
+		mListBusiness.getSearchSuggestListPageData(keyword, new SearchSuggestDataHandler());
+	}
+	
+	private void loadSearchResult(String keyword, int pageNum) {
+		setContentShown(false);
+		mListBusiness.getMtvListPageDataBySearch(keyword, pageNum, new SearchResultDataHandler());
+	}
+	
+	private class HotKeywordDataHandler extends PageDataHandler<String> {
+
+		@Override
+		public void onSuccess(PageData<String> data) {
+//			MobclickAgent.onEvent(getActivity(), Constants.KS_UMENG_SEARCH_MUSIC_PROMPT, Constants.KS_UMENG_SUCCESS); 
+			if(data != null && data.data.size() > 0) {
+				//set adapter
+				showSearchHotKeywordView();
+				mHotKeywordListAdapter.setHotKeywordList(data.data);
+				lvFragmentSearchHotKeyword.setAdapter(mHotKeywordListAdapter);
+			}
+			
+			setContentShown(true);
+		}
+		
+		@Override
+		public void onFailure(Throwable error, String content) {
+			super.onFailure(error, content);
+			LogSystem.e(LOG_TAG, "content: "+content);
+//			showDefaultHotKeywordList();
+			setContentEmpty(true);
+			setContentShown(true);
+		}
+		
+		@Override
+		public void onFailure() {
+			super.onFailure();
+			LogSystem.e(LOG_TAG, "onFailure");
+//			showDefaultHotKeywordList();
+			setContentEmpty(true);
+			setContentShown(true);
+		}
+		
+	} 
+	
+	private class SearchSuggestDataHandler extends PageDataHandler<SearchPromptObject> {
+
+		@Override
+		public void onSuccess(PageData<SearchPromptObject> data) {
+//			MobclickAgent.onEvent(activity, Constants.KS_UMENG_SEARCH_MUSIC_PROMPT, Constants.KS_UMENG_SUCCESS); 
+			if(data != null && data.data.size() > 0) {
+				showSearchSuggestView();
+				mSearchSuggestAdapter.setSearchPromptList(data.data);
+				lvFragmentSearchSuggest.setAdapter(mSearchSuggestAdapter);
+			}
+			setContentShown(true);
+		}
+		
+		@Override
+		public void onFailure() {
+			super.onFailure();
+			setContentEmpty(true);
+			setContentShown(true);
+			
+		}
+		
+		@Override
+		public void onFinish() {
+			new Handler().postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					mPullRefreshListView.onRefreshComplete();
+				}
+			}, Constants.PTR_SHOW_DELAY_TIME);
+		}
+	}
+	
+	private class SearchResultDataHandler extends PageDataHandler<Mtv> { 
+
+		@Override
+		public void onSuccess(PageData<Mtv> data) {
+//			MobclickAgent.onEvent(activity, Constants.KS_UMENG_SEARCH_MUSIC, Constants.KS_UMENG_SUCCESS); 
+			if(data != null && data.data.size() > 0) {
+				mCurrentPageNum = data.page;
+				mTotalPage = data.total;
+				showSearchResultView();
+				mSearchResultAdapter.setMtvData(mCurrentPageNum, data.data);
+				getActivity().setTitle(mKeyword+"  [ "+mCurrentPageNum+"/"+mTotalPage+" ]");
+				setContentShown(true);
+			}
+		}
+		
+		@Override
+		public void onFailure(Throwable error, String content) {
+			if(mCurrentPageNum == 1) {
+				setContentEmpty(true);
+			}else {
+				AppMsg.makeText(getActivity(), "加载数据失败，请检查您的网络", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+			}
+			setContentShown(true);
+		}
+		
+		@Override
+		public void onFailure() {
+//			MobclickAgent.onEvent(activity, Constants.KS_UMENG_SEARCH_MUSIC, Constants.KS_UMENG_FAIL);
+			if(mCurrentPageNum == 1) {
+				setContentEmpty(true);
+			}else {
+				AppMsg.makeText(getActivity(), "加载数据失败，请检查您的网络", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+			}
+			setContentShown(true);
+		}
+		
+		@Override
+		public void onFinish() {
+			new Handler().postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					mPullRefreshListView.onRefreshComplete();
+				}
+			}, Constants.PTR_SHOW_DELAY_TIME);
+		}
+	}
+	
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		super.onPrepareOptionsMenu(menu);
+		setMenuVisibility(true);
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		mContentView = inflater.inflate(R.layout.fragment_search, null);
+		return inflater.inflate(R.layout.fragment_progress_empty, container, false);
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		
+		// Setup content view
+		setContentView(mContentView);
+	   // Setup text for empty content
+		setEmptyText(R.string.load_data_fail);
+		getActivity().setTitle(R.string.fragment_title_search);
+				
+		initData();
+		initView();
+		loadSearchHotKeyword();
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
+	}
+
+	private void initData() {
+		mListBusiness = new ListBusiness();
+	}
+	
+	private void showSearchHotKeywordView() {
+		lvFragmentSearchSuggest.setVisibility(View.GONE);
+		mPullRefreshListView.setVisibility(View.GONE);
+		lvFragmentSearchHotKeyword.setVisibility(View.VISIBLE);
+	}
+	
+	private void showSearchSuggestView() {
+		lvFragmentSearchHotKeyword.setVisibility(View.GONE);
+		mPullRefreshListView.setVisibility(View.GONE);
+		lvFragmentSearchSuggest.setVisibility(View.VISIBLE);
+	}
+	
+	private void showSearchResultView() {
+		lvFragmentSearchHotKeyword.setVisibility(View.GONE);
+		lvFragmentSearchSuggest.setVisibility(View.GONE);
+		mPullRefreshListView.setVisibility(View.VISIBLE);
+		mPullRefreshListView.getRefreshableView().setVisibility(View.VISIBLE);
+	}
+
+	private void initView() {
+		lvFragmentSearchHotKeyword = (ListView)getActivity().findViewById(R.id.lvFragmentSearchHotKeyword);
+		lvFragmentSearchHotKeyword.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				mKeyword = (String) mHotKeywordListAdapter.getItem(position);
+				mCurrentPageNum = 1;
+				loadSearchResult(mKeyword, mCurrentPageNum);
+			}
+		});
+		lvFragmentSearchSuggest = (ListView)getActivity().findViewById(R.id.lvFragmentSearchSuggest);
+		lvFragmentSearchSuggest.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				SearchPromptObject obj = (SearchPromptObject) mSearchSuggestAdapter.getItem(position);
+				mKeyword = obj.name;
+				mCurrentPageNum = 1;
+				loadSearchResult(mKeyword, mCurrentPageNum);
+			}
+		});
+		mPullRefreshListView = (PullToRefreshListView)getActivity().findViewById(R.id.lvFragmentSearchResult);
+		
+		//initial adapter 
+		mHotKeywordListAdapter = new HotKeywordListAdapter(getActivity());
+		mSearchSuggestAdapter = new SearchSuggestAdapter(getActivity());
+		mSearchResultAdapter = new DetailAdapter(getActivity(), Constants.PAGE_FROM_PINYIN);
+		
+		mPullRefreshListView.setMode(Mode.PULL_FROM_END);
+		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
+
+			@Override
+			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+				String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(),
+						DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+				// Update the LastUpdatedLabel
+				refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+
+				// Do work to refresh the list here.
+				switch (refreshView.getCurrentMode()) {
+				case PULL_FROM_END:
+					toLoadMore();
+					break;
+
+				default:
+					break;
+				}
+			}
+		});
+		
+		mPullRefreshListView.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
+
+			@Override
+			public void onLastItemVisible() {
+				if(mTotalPage == mCurrentPageNum)
+					Toast.makeText(getActivity(), "End of List!", Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		ListView actualListView = mPullRefreshListView.getRefreshableView();
+		actualListView.setVisibility(View.VISIBLE);
+		SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mSearchResultAdapter, 
+				Constants.LIST_ITEM_ANIMATION_DELAY, Constants.LIST_ITEM_ANIMATION_DURATION);
+		swingBottomInAnimationAdapter.setAbsListView(actualListView);
+		actualListView.setAdapter(swingBottomInAnimationAdapter);
+	}
+	
+	private void toLoadMore() {
+		mListBusiness.getMtvListPageDataBySearch(mKeyword, ++mCurrentPageNum, new SearchResultDataHandler());
+	}
+}

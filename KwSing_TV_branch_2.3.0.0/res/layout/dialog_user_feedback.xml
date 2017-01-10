@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/dialog_background_shape" >
+
+    <LinearLayout
+        android:id="@+id/llUserFeedbackContent"
+        android:layout_width="1084dp"
+        android:layout_height="548dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/dialog_content_background_shape"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_user_feedback" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="10dp"
+                android:text="用户反馈"
+                android:textColor="@color/more_title_color"
+                android:textSize="@dimen/more_title_text" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:src="@color/more_title_color" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/ivWeiXin"
+                android:layout_width="420dp"
+                android:layout_height="420dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginBottom="25dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/weixin" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_toRightOf="@id/ivWeiXin"
+                android:layout_marginLeft="30dp"
+                android:layout_alignBottom="@id/ivWeiXin"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tvWeiXinTip1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="微信扫一扫"
+                    android:textColor="@color/more_title_color"
+                    android:textSize="@dimen/item_text" />
+
+                <TextView
+                    android:id="@+id/tvWeiXinTip2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="left"
+                    android:text="添加酷我K歌微信公众平台"
+                    android:textColor="@color/more_title_color"
+                    android:textSize="@dimen/item_text" />
+
+                <TextView
+                    android:id="@+id/tvWeiXinTip3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="left"
+                    android:text="把你想说的告诉我们，我们在倾听"
+                    android:textColor="@color/more_title_color"
+                    android:textSize="@dimen/item_text" />
+                
+                <TextView
+                    android:id="@+id/tvWeiXinTip3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="left"
+                    android:text="酷我K歌TV用户QQ群：124268845"
+                    android:textColor="@color/more_title_color"
+                    android:textSize="@dimen/item_text" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

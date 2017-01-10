@@ -1,0 +1,567 @@
+package cn.kuwo.sing.phone4tv.view.activity;
+
+import java.net.SocketException;
+import java.nio.channels.SocketChannel;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Typeface;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import cn.kuwo.sing.phone4tv.R;
+import cn.kuwo.sing.phone4tv.bean.UpdateLog;
+import cn.kuwo.sing.phone4tv.business.ListBusiness;
+import cn.kuwo.sing.phone4tv.commmons.log.LogSystem;
+import cn.kuwo.sing.phone4tv.commons.context.AppContext;
+import cn.kuwo.sing.phone4tv.commons.context.Constants;
+import cn.kuwo.sing.phone4tv.commons.context.MainApplication;
+import cn.kuwo.sing.phone4tv.commons.socket.MessageCommons;
+import cn.kuwo.sing.phone4tv.commons.socket.RequestMessage;
+import cn.kuwo.sing.phone4tv.commons.socket.SocketManager;
+import cn.kuwo.sing.phone4tv.commons.util.CommonUtils;
+import cn.kuwo.sing.phone4tv.commons.util.DataHandler;
+import cn.kuwo.sing.phone4tv.view.adapter.MainFragmentPagerAdapter;
+import cn.kuwo.sing.phone4tv.view.widget.ChangeLog;
+
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.astuetz.PagerSlidingTabStrip;
+import com.devspark.appmsg.AppMsg;
+import com.google.zxing.client.android.CaptureActivity;
+import com.jazzyview.jazzyviewpager.JazzyViewPager;
+import com.jazzyview.jazzyviewpager.JazzyViewPager.TransitionEffect;
+import com.slidinglayer.SlidingLayer;
+
+public class MainActivity extends SherlockFragmentActivity {
+	private static final String LOG_TAG = "MainActivity";
+	private static boolean hasBackButtonFirstClick = false;
+	private PagerSlidingTabStrip mTabs;
+	private JazzyViewPager mViewPager;
+	private SlidingLayer mSlidingLayerMain;
+	private Timer mExitTimer = new Timer();
+	private LinearLayout llDisconnectedTvLayout;
+	private LinearLayout llConnectedTvLayout;
+	//private SocketManager mSocketManager;
+	private TextView tvDisconnectedTvUpOrDown;
+	private LinearLayout llDisconnectedTvNotScanLayout;
+	private TextView tvConnectedTvUpOrDown;
+	
+	private Button btDisconnectedTvScanQrCode;
+	private Button btConnectedTvOrderedMtv;
+	private Button btConnectedTvToPreMtv;
+	private Button btConnectedTvToPlay;
+	private Button btConnectedTvToNextMtv;
+	private Button btConnectedTvOrig;
+	private Button btConnectedTvToScore;
+	private Button btConnectedTvToReplay;
+	private Button btConnectedTvMicphoneVolumeAdd;
+	private Button btConnectedTvMicphoneVolumeDec;
+	private Button btConnectedTvAccompVolumeAdd;
+	private Button btConnectedTvAccompVolumeDec;
+	private Button btConnectedTvToPause;
+	private Button btConnectedTvAccomp;
+	
+	private ProgressBar pbConnectedTvSwitchOrigOrAccomp;
+	private ProgressBar pbConnectedTvSwitchPlayOrPause;
+	
+	private void showPlayOrPauseProgressBar() {
+		btConnectedTvToPause.setVisibility(View.GONE);
+		btConnectedTvToPlay.setVisibility(View.GONE);
+		pbConnectedTvSwitchPlayOrPause.setVisibility(View.INVISIBLE);
+	}
+	
+	private void showOrigOrAccompProgressBar() {
+		btConnectedTvAccomp.setVisibility(View.GONE);
+		btConnectedTvOrig.setVisibility(View.GONE);
+		pbConnectedTvSwitchOrigOrAccomp.setVisibility(View.VISIBLE);
+	}
+	
+	private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.btDisconnectedTvScanQrCode:
+				//打开扫描界面扫描条形码或二维码
+				Intent openCameraIntent = new Intent(MainActivity.this, CaptureActivity.class);
+				startActivityForResult(openCameraIntent, 0);
+				break;
+			case R.id.btConnectedTvOrderedMtv:
+				Intent orderedIntent = new Intent(MainActivity.this, OrderedActivity.class);
+				startActivity(orderedIntent);
+				//performCommand(MessageCommons.CMD_ORDERED_MTV);
+				break;
+			case R.id.btConnectedTvToPreMtv:
+				performCommand(MessageCommons.CMD_TO_PRE_MTV);
+				break;
+			case R.id.btConnectedTvToPlay:
+				performCommand(MessageCommons.CMD_TO_PLAY);
+				break;
+			case R.id.btConnectedTvToPause:
+				performCommand(MessageCommons.CMD_TO_PAUSE);
+				break;
+			case R.id.btConnectedTvToNextMtv:
+				performCommand(MessageCommons.CMD_TO_NEXT_MTV);
+				break;
+			case R.id.btConnectedTvOrig:
+				performCommand(MessageCommons.CMD_TO_SWITCH_ORIGINAL);
+				showOrigOrAccompProgressBar();
+				break;
+			case R.id.btConnectedTvAccomp:
+				performCommand(MessageCommons.CMD_TO_SWITCH_ACCOMP);
+				showOrigOrAccompProgressBar();
+				break;
+			case R.id.btConnectedTvToScore:
+				performCommand(MessageCommons.CMD_TO_SCORE);
+				break;
+			case R.id.btConnectedTvToReplay:
+				performCommand(MessageCommons.CMD_TO_REPLAY);
+				break;
+			case R.id.btConnectedTvMicphoneVolumeAdd:
+				performCommand(MessageCommons.CMD_ADD_MICPHONE_VOLUME);
+				break;
+			case R.id.btConnectedTvMicphoneVolumeDec:
+				performCommand(MessageCommons.CMD_DEC_MICPHONE_VOLUME);
+				break;
+			case R.id.btConnectedTvAccompVolumeAdd:
+				performCommand(MessageCommons.CMD_ADD_ACCOMP_VOLUME);
+				break;
+			case R.id.btConnectedTvAccompVolumeDec:
+				performCommand(MessageCommons.CMD_DEC_ACCOMP_VOLUME);
+				break;
+			default:
+				break;
+			}
+		}
+	};
+	
+	
+	private void performCommand(final int cmd) {
+		final SocketChannel socketChannel = MainApplication.s_socketChannel;
+		if(socketChannel != null && socketChannel.isConnected()) {
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					try {
+						RequestMessage requestMessage = SocketManager.getInstance().createRequestMessage(
+								cmd, 
+								null, 
+								null,
+								null,
+								System.currentTimeMillis());
+						SocketManager.getInstance().writeRequestMessage(socketChannel, requestMessage);
+					} catch (SocketException e) {
+						e.printStackTrace();
+					}
+				}
+			}).start();
+		}else {
+			MainApplication.isConnecting = false;
+			refreshConnectSlidingLayer();
+			AppMsg.makeText(MainActivity.this, "没有连接电视，请先扫描二维码!", AppMsg.STYLE_ALERT)
+			.setLayoutGravity(Gravity.TOP)
+			.show();
+		}
+	}
+	
+    private class ExitTimerTask extends TimerTask {
+
+		@Override
+		public void run() {
+			hasBackButtonFirstClick = false;
+		}
+	}
+    
+    private Handler mUpdateConversationHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case MessageCommons.RESULT_CONNECT_SUCCESS:
+				AppMsg.makeText(MainActivity.this, "连接成功", AppMsg.STYLE_INFO)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+				MainApplication.isConnecting = true;
+				refreshConnectSlidingLayer();
+				break;
+			case MessageCommons.RESULT_CONNECT_FAIL:
+				AppMsg.makeText(MainActivity.this, "连接失败", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+				break;
+			case MessageCommons.RESULT_IS_NOT_PLAYING:
+				AppMsg.makeText(MainActivity.this, "TV没有处于播放状态，请先播放", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+				break;
+			case MessageCommons.RESULT_SERVER_SHUTDOWN:
+				AppMsg.makeText(MainActivity.this, "TV端K歌已经关闭", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+				break;
+			case MessageCommons.RESULT_TO_SWITCH_ORIGINAL:
+				AppMsg.makeText(MainActivity.this, "当前播放的是伴唱，显示原唱按钮", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+				showOrigView();
+				break;
+			case MessageCommons.RESULT_TO_SWITCH_ACCOMP:
+				AppMsg.makeText(MainActivity.this, "当前播放的是原唱，显示伴唱按钮", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+				showAccompView();
+				break;
+			case MessageCommons.RESULT_TO_PLAY:
+				AppMsg.makeText(MainActivity.this, "当前是播放，显示播放按钮", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+				showPlayView();
+				break;
+			case MessageCommons.RESULT_TO_PAUSE:
+				AppMsg.makeText(MainActivity.this, "当前是暂停，显示暂停按钮", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+				showPauseView();
+				break;
+			default:
+				break;
+			}
+		}
+    	
+    };
+    
+    private void showPlayView() {
+    	pbConnectedTvSwitchPlayOrPause.setVisibility(View.GONE);
+    	btConnectedTvToPause.setVisibility(View.GONE);
+    	btConnectedTvToPlay.setVisibility(View.VISIBLE);
+    }
+    
+    private void showPauseView() {
+    	pbConnectedTvSwitchPlayOrPause.setVisibility(View.GONE);
+    	btConnectedTvToPlay.setVisibility(View.GONE);
+    	btConnectedTvToPause.setVisibility(View.VISIBLE);
+    }
+    
+    private void showAccompView() {
+    	pbConnectedTvSwitchOrigOrAccomp.setVisibility(View.GONE);
+    	btConnectedTvOrig.setVisibility(View.GONE);
+    	btConnectedTvAccomp.setVisibility(View.VISIBLE);
+    }
+    
+    private void showOrigView() {
+    	pbConnectedTvSwitchOrigOrAccomp.setVisibility(View.GONE);
+    	btConnectedTvAccomp.setVisibility(View.GONE);
+    	btConnectedTvOrig.setVisibility(View.VISIBLE);
+    }
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		//add menu
+		menu.add(Constants.MENU_GROUP_ID, Constants.MENU_ITEM_ID_SEARCH, Menu.NONE,Constants.MENU_ITEM_TITLE_SEARCH)
+		.setIcon(android.R.drawable.ic_menu_search)
+		.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS); 
+		
+		menu.add(Constants.MENU_GROUP_ID, Constants.MENU_ITEM_ID_UPDATE, Menu.NONE,Constants.MENU_ITEM_TITLE_UPDATE)
+		.setIcon(android.R.drawable.ic_menu_search)
+		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM); 
+		
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Log.d(LOG_TAG, "onCreateOptionsMenu");
+		switch (item.getItemId()) {
+		case Constants.MENU_ITEM_ID_SEARCH:
+			startActivity(new Intent(MainActivity.this, SearchActivity.class));
+			break;
+		case Constants.MENU_ITEM_ID_UPDATE:
+			if(AppContext.getNetworkSensor().hasAvailableNetwork()) {
+				ListBusiness listBusiness = new ListBusiness();
+				listBusiness.getUpdateLog(new UpdateLogHandler());
+			}else {
+				AppMsg.makeText(MainActivity.this, "当前没有连接网络，无法检测!", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+			}
+			break;
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	private class UpdateLogHandler extends DataHandler<String> {
+
+		@Override
+		public void onSuccess(String jsonResult) {
+			UpdateLog ul = new UpdateLog();
+			try {
+				JSONObject jsonObj = new JSONObject(jsonResult);
+				String resultStr = jsonObj.getString("result");
+				if(!TextUtils.isEmpty(resultStr) && resultStr.equals("ok")) {
+					ul.version = jsonObj.getString("version");
+					ul.info = jsonObj.getString("msg");
+					ul.time = jsonObj.getString("time");
+					ChangeLog changeLog = new ChangeLog(MainActivity.this, ChangeLog.DEFAULT_SMALL_CSS);
+					String fullLog = changeLog.getFormatLog(ul.version, ul.time, ul.info);
+					changeLog.getLogDialog4Update(fullLog).show();
+				}
+			} catch (JSONException e) {
+				LogSystem.e(LOG_TAG, e.toString());
+			}			
+		}
+
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		//处理扫描结果（在界面上显示）
+		if (resultCode == RESULT_OK) {
+			Bundle bundle = data.getExtras();
+			String scanResult = bundle.getString("result");
+			if(scanResult.contains(":")) {
+				//连接服务端ip
+				String[] ipAndPort = scanResult.split(":");
+				performConnectServer(ipAndPort[0], ipAndPort[1]);
+			}else {
+				AppMsg.makeText(MainActivity.this, "无效的电视二维码", AppMsg.STYLE_ALERT)
+				.setLayoutGravity(Gravity.TOP)
+				.show();
+			}
+		}
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		initView();
+		initData();
+		loadChangeLog();
+	}
+	
+	private void loadChangeLog() {
+		ChangeLog log = new ChangeLog(this, ChangeLog.DEFAULT_SMALL_CSS);
+		if(log.isFirstRun()) {
+			AlertDialog dialog = log.getLogDialog();
+			dialog.show();
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		SocketManager.getInstance().removeHandler(MainActivity.class.getSimpleName());
+		MainApplication.isConnecting = false;
+	}
+	
+	private void initView() {
+		CommonUtils.setActionBarColor(this);
+		Resources rs = getResources();
+		//Tab
+		mTabs = (PagerSlidingTabStrip)findViewById(R.id.pagerSlidingTabStrip);
+		mTabs.setShouldExpand(true);
+		final int tabTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, rs.getDimension(R.dimen.tab_font_size),rs.getDisplayMetrics());
+		mTabs.setTextSize(tabTextSize);
+		mTabs.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
+		mTabs.setIndicatorColorResource(R.color.background_actionBar);
+		
+		//ViewPager
+		mViewPager = (JazzyViewPager)findViewById(R.id.viewPager);
+		final int viewPagerMarginPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, rs.getDimension(R.dimen.viewpager_margin), rs.getDisplayMetrics());
+		mViewPager.setPageMargin(viewPagerMarginPixels);
+		String[] titles = getResources().getStringArray(R.array.main_fragment_titles);
+		final MainFragmentPagerAdapter pagerAdapter = new MainFragmentPagerAdapter(getSupportFragmentManager(), titles, mViewPager);
+		mViewPager.setOffscreenPageLimit(1);
+		mViewPager.setTransitionEffect(TransitionEffect.Standard);
+		mViewPager.setAdapter(pagerAdapter);
+		mTabs.setViewPager(mViewPager);
+		
+		llDisconnectedTvLayout = (LinearLayout)findViewById(R.id.llDisconnectedTvLayout);
+		llConnectedTvLayout = (LinearLayout)findViewById(R.id.llConnectedTvLayout);
+		
+		tvDisconnectedTvUpOrDown = (TextView) findViewById(R.id.tvDisconnectedTvUpOrDown);
+		tvConnectedTvUpOrDown = (TextView)findViewById(R.id.tvConnectedTvUpOrDown);
+		
+		//disconnected layout
+		llDisconnectedTvNotScanLayout = (LinearLayout)findViewById(R.id.llDisconnectedTvNotScanLayout);
+        btDisconnectedTvScanQrCode = (Button)findViewById(R.id.btDisconnectedTvScanQrCode);
+        btDisconnectedTvScanQrCode.setOnClickListener(mOnClickListener);
+        
+        //connected layout
+        btConnectedTvOrderedMtv = (Button)findViewById(R.id.btConnectedTvOrderedMtv);
+        btConnectedTvToPreMtv = (Button) findViewById(R.id.btConnectedTvToPreMtv);
+		btConnectedTvToPlay = (Button) findViewById(R.id.btConnectedTvToPlay);
+		btConnectedTvToPause = (Button)findViewById(R.id.btConnectedTvToPause);
+		btConnectedTvToNextMtv = (Button) findViewById(R.id.btConnectedTvToNextMtv);
+		btConnectedTvOrig = (Button)findViewById(R.id.btConnectedTvOrig);
+		btConnectedTvAccomp = (Button)findViewById(R.id.btConnectedTvAccomp);
+		btConnectedTvToScore = (Button)findViewById(R.id.btConnectedTvToScore);
+		btConnectedTvToReplay = (Button)findViewById(R.id.btConnectedTvToReplay);
+		btConnectedTvMicphoneVolumeAdd = (Button)findViewById(R.id.btConnectedTvMicphoneVolumeAdd);
+		btConnectedTvMicphoneVolumeDec = (Button)findViewById(R.id.btConnectedTvMicphoneVolumeDec);
+		btConnectedTvAccompVolumeAdd = (Button)findViewById(R.id.btConnectedTvAccompVolumeAdd);
+		btConnectedTvAccompVolumeDec = (Button)findViewById(R.id.btConnectedTvAccompVolumeDec);
+		
+		pbConnectedTvSwitchPlayOrPause = (ProgressBar)findViewById(R.id.pbConnectedTvSwitchPlayOrPause);
+		pbConnectedTvSwitchOrigOrAccomp = (ProgressBar)findViewById(R.id.pbConnectedTvSwitchOrigOrAccomp);
+		
+		
+		btConnectedTvOrderedMtv.setOnClickListener(mOnClickListener);
+		btConnectedTvToPreMtv.setOnClickListener(mOnClickListener);
+		btConnectedTvToPlay.setOnClickListener(mOnClickListener);
+		btConnectedTvToPause.setOnClickListener(mOnClickListener);
+		btConnectedTvToNextMtv.setOnClickListener(mOnClickListener);
+		btConnectedTvOrig.setOnClickListener(mOnClickListener);
+		btConnectedTvAccomp.setOnClickListener(mOnClickListener);
+		btConnectedTvToScore.setOnClickListener(mOnClickListener);
+		btConnectedTvToReplay.setOnClickListener(mOnClickListener);
+		btConnectedTvMicphoneVolumeAdd.setOnClickListener(mOnClickListener);
+		btConnectedTvMicphoneVolumeDec.setOnClickListener(mOnClickListener);
+		btConnectedTvAccompVolumeAdd.setOnClickListener(mOnClickListener);
+		btConnectedTvAccompVolumeDec.setOnClickListener(mOnClickListener);
+		
+		mSlidingLayerMain = (SlidingLayer) findViewById(R.id.slidingLayerMain);
+		mSlidingLayerMain.setOnInteractListener(mOnInteractListener);
+	}
+	
+	private void initData() {
+		//mSocketManager = new SocketManager(mUpdateConversationHandler);
+		SocketManager.getInstance().addHander(MainActivity.class.getSimpleName(), mUpdateConversationHandler);
+		refreshConnectSlidingLayer();
+	}
+	
+	private void refreshConnectSlidingLayer() {
+		if(MainApplication.isConnecting) 
+			showConnectedTvLayout();
+		else
+			showDisconnectedTvLayout();
+	}
+	
+	private void showConnectedTvLayout() {
+		llDisconnectedTvLayout.setVisibility(View.GONE);
+		llConnectedTvLayout.setVisibility(View.VISIBLE);
+		
+		
+		
+	}
+	
+	private void showDisconnectedTvLayout() {
+		llConnectedTvLayout.setVisibility(View.GONE);
+		llDisconnectedTvLayout.setVisibility(View.VISIBLE);
+	}
+	
+	private SlidingLayer.OnInteractListener mOnInteractListener = new SlidingLayer.OnInteractListener() {
+		
+		@Override
+		public void onOpened() {
+			tvDisconnectedTvUpOrDown.setText(" 向下↓");
+			tvConnectedTvUpOrDown.setText(" 向下↓");
+		}
+		
+		@Override
+		public void onOpen() {
+			
+		}
+		
+		@Override
+		public void onClosed() {
+			tvDisconnectedTvUpOrDown.setText(" 向上↑");
+			tvConnectedTvUpOrDown.setText(" 向上↑");
+		}
+		
+		@Override
+		public void onClose() {
+			
+		}
+	};
+	
+	private void performConnectServer(String serverIp, String serverPort) {
+		String localIp = getWifiIp();
+		String localIpPrefix = "";
+		String tvIpPrefix = "";
+		if(serverIp.contains(".") && localIp.contains(".")) {
+			localIpPrefix = localIp.substring(0, localIp.lastIndexOf("."));
+			tvIpPrefix = serverIp.substring(0, serverIp.lastIndexOf("."));
+		}else {
+			AppMsg.makeText(MainActivity.this, "IP地址不正确！", AppMsg.STYLE_ALERT)
+			.setLayoutGravity(Gravity.TOP).show();
+			return;
+		}
+
+		if(localIpPrefix.equals(tvIpPrefix))
+			//点击 “连接” 进行服务端的连接操作
+			startSocketConnectThread(serverIp, Integer.parseInt(serverPort));
+		else
+			AppMsg.makeText(MainActivity.this, "不在同一网段内!", AppMsg.STYLE_ALERT)
+			.setLayoutGravity(Gravity.TOP)
+			.show();
+	}
+	
+	private void startSocketConnectThread(String serverIp, int serverPort) {
+		SocketManager.getInstance().startSocketConnectThread(serverIp, serverPort);
+	}
+	
+	private String getWifiIp() {
+		WifiManager wifimanage=(WifiManager)this.getSystemService(Context.WIFI_SERVICE);//获取WifiManager  
+		//检查wifi是否开启  
+		  
+		if(!wifimanage.isWifiEnabled())  {  
+			wifimanage.setWifiEnabled(true);  
+		}  
+		  
+		WifiInfo wifiinfo= wifimanage.getConnectionInfo();  
+		return intToIp(wifiinfo.getIpAddress());  
+	}
+	
+	//将获取的int转为真正的ip地址
+	private String intToIp(int i)  {
+		return (i & 0xFF)+ "." + ((i >> 8 ) & 0xFF) + "." + ((i >> 16 ) & 0xFF) +"."+((i >> 24 ) & 0xFF);
+	}  
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		//点击两次返回键退出应用
+		if(event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+			if(mSlidingLayerMain.isOpened()) {
+				mSlidingLayerMain.closeLayer(true);
+			}else {
+				if(hasBackButtonFirstClick) {
+					finish();
+				}else { 
+					AppMsg.makeText(this, R.string.click_again_to_exit, AppMsg.STYLE_INFO)
+					.setLayoutGravity(Gravity.TOP)
+					.show();
+					hasBackButtonFirstClick = true;
+					mExitTimer.schedule(new ExitTimerTask(), 2000); //2秒后重置标记
+				}
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="digital_button">#FFFFFF</color>
+    <color name="loading_rim_color">#66000000</color>
+    <color name="playing_song_color">#00B8F6</color>
+    <color name="unplaying_song_color">#FFFFFF</color>
+    <color name="volume_dialog_color">#00B8F6</color>
+    <color name="toast_mtv_name_color">#FCFF53</color>
+    <color name="more_title_color">#6b8395</color>
+    <color name="item_bg_blue">#00B8F6</color>
+    <color name="item_list_left_color">#071B1A</color>
+    <color name="item_list_left_color_konka">#0E0812</color>
+    <color name="item_list_right_color">#126970</color>
+    <color name="text_white">#ffffff</color>
+</resources>

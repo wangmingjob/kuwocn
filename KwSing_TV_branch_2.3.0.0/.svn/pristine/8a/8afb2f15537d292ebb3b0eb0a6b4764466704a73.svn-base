@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/llUserMtvListItem"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_item_bg_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/item_divide"
+        android:paddingTop="@dimen/item_divide" >
+
+        <TextView
+            android:id="@+id/tvUserMtvSerialIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="5dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="111"
+            android:textColor="@drawable/item_color"
+            android:textSize="@dimen/item_text_index" />
+
+        <TextView
+            android:id="@+id/tvUserMtvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="2"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLength="@integer/item_text_len"
+            android:singleLine="true"
+            android:text="十二生肖"
+            android:textColor="@drawable/item_color"
+            android:textSize="@dimen/item_text" />
+
+        <TextView
+            android:id="@+id/tvUserMtvArtist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLength="12"
+            android:paddingLeft="60dp"
+            android:singleLine="true"
+            android:text="王力宏"
+            android:textColor="@drawable/item_color"
+            android:textSize="@dimen/item_text" />
+
+        <ImageView
+            android:id="@+id/ivUserMtvSing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/play_usermtv_selector" />
+
+    </LinearLayout>
+	<ImageView
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/llUserMtvListItem"
+         android:src="@drawable/list_item_divider" />
+</RelativeLayout>

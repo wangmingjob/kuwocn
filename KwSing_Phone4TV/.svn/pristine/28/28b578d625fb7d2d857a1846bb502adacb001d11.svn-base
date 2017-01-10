@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llConnectedTvLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#88000000"
+    android:orientation="vertical"
+    android:visibility="visible" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/layer_main_offset_width"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal" >
+        
+        <Button
+            android:id="@+id/btConnectedTvOrderedMtv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/letter_view_selector"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="已点"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btConnectedTvToPreMtv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/letter_view_selector"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="上一首"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/btConnectedTvToPlay"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/letter_view_selector"
+                android:gravity="center"
+                android:singleLine="true"
+                android:visibility="gone"
+                android:text="播放"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+            
+            <Button
+                android:id="@+id/btConnectedTvToPause"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/letter_view_selector"
+                android:gravity="center"
+                android:singleLine="true"
+                android:visibility="visible"
+                android:text="暂停"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+            <ProgressBar
+                android:id="@+id/pbConnectedTvSwitchPlayOrPause"
+                style="@android:style/Widget.Holo.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btConnectedTvToNextMtv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/letter_view_selector"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="下一首"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvConnectedTvUpOrDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="8dp"
+            android:text="向上↑"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal"
+        >
+        
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/btConnectedTvAccomp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/letter_view_selector"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="伴唱"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+            
+             <Button
+                android:id="@+id/btConnectedTvOrig"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/letter_view_selector"
+                android:gravity="center"
+                android:visibility="visible"
+                android:text="原唱"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+            <ProgressBar
+                android:id="@+id/pbConnectedTvSwitchOrigOrAccomp"
+                style="@android:style/Widget.Holo.ProgressBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </FrameLayout>
+        
+        <Button
+            android:id="@+id/btConnectedTvToScore"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/letter_view_selector"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="打分"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+        <Button
+            android:id="@+id/btConnectedTvToReplay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/letter_view_selector"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="重唱"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal"
+        >
+        
+        <LinearLayout 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            
+            <TextView 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="麦克风音量"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                />
+            
+            <RelativeLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                >
+                <Button 
+                    android:id="@+id/btConnectedTvMicphoneVolumeAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/letter_view_selector"
+                    android:layout_alignParentLeft="true"
+                    android:text="+"
+		            android:textColor="@android:color/white"
+		            android:textSize="16sp"
+                    />
+                <Button 
+                    android:id="@+id/btConnectedTvMicphoneVolumeDec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/letter_view_selector"
+                    android:layout_alignParentRight="true"
+                    android:text="-"
+		            android:textColor="@android:color/white"
+		            android:textSize="16sp"
+                    />
+            </RelativeLayout>
+            
+        </LinearLayout>
+        <LinearLayout 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            
+            <TextView 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="伴唱音量"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                />
+            
+            <RelativeLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                >
+                <Button 
+                    android:id="@+id/btConnectedTvAccompVolumeAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/letter_view_selector"
+                    android:layout_alignParentLeft="true"
+                    android:text="+"
+		            android:textColor="@android:color/white"
+		            android:textSize="16sp"
+                    />
+                <Button 
+                    android:id="@+id/btConnectedTvAccompVolumeDec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/letter_view_selector"
+                    android:layout_alignParentRight="true"
+                    android:text="-"
+		            android:textColor="@android:color/white"
+		            android:textSize="16sp"
+                    />
+            </RelativeLayout>
+            
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

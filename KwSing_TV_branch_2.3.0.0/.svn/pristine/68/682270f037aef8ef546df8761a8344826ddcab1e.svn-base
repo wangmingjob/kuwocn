@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelog>
+    <release version="2.2.0.0 (2014-3-12)" versioncode="2200">
+		<change>新增分类点歌，帮你更快找到想唱的歌；</change>
+        <change>改进播放性能，解决部分用户无法播歌、播歌卡顿等问题； </change>
+		<change>新增热门搜索推荐，热门MV不错过；</change>
+		<change>支持一键清空已点歌曲列表。</change>
+    </release>
+</changelog>

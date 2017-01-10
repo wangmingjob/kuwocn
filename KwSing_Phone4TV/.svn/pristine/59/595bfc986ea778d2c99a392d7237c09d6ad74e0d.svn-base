@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/llItemUserDetailList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/list_item_padding_top_bottom"
+        android:paddingTop="@dimen/list_item_padding_top_bottom" >
+
+        <!-- <TextView
+            android:id="@+id/tvDetailUserMtvSerialIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="5dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="111" /> -->
+
+        <TextView
+            android:id="@+id/tvDetailUserMtvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="十二生肖已点歌曲列表，无法滑动已点歌曲列表，无法滑动已点歌曲列表"
+            android:textSize="@dimen/item_detail_name_textsize"
+            android:textColor="@color/item_detail_name_text_color" />
+
+        <TextView
+            android:id="@+id/tvDetailUserMtvArtist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:layout_marginLeft="4dp"
+            android:maxLength="12"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="王力宏"
+            android:textSize="@dimen/item_detail_artist_textsize"
+            android:textColor="@color/item_detail_artist_text_color" />
+
+        <ImageView
+            android:id="@+id/btDetailUserMtvPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/bt_play_selector" />
+    </LinearLayout>
+    
+    <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/llItemUserDetailList"
+        android:src="@color/item_detail_divider"
+        />
+</RelativeLayout>

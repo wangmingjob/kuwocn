@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/dialog_background_shape" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" >
+
+        <TextView
+            android:id="@+id/tvASRInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_asr_dialog_info" />
+
+        <ImageView
+            android:id="@+id/ivMic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvASRInfo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/marginTop_asr_dialog_mic"
+            android:src="@drawable/voice_say" />
+
+        <FrameLayout
+            android:id="@+id/flASRResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivMic"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/marginTop_asr_dialog_result" >
+
+            <TextView
+                android:id="@+id/tvASRResult"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginTop_asr_dialog_result_content"
+                android:gravity="center"
+                android:text="正在搜索..."
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/textSize_asr_dialog_result"
+                android:visibility="visible" />
+
+            <RatingBar
+                android:id="@+id/pbASRWav"
+                style="@style/voiceRatingBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:numStars="10"
+                android:layout_marginTop="@dimen/marginTop_asr_dialog_wav"
+                android:rating="1"
+                android:stepSize="0.1"
+                android:visibility="visible" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/llASRButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/flASRResult"
+            android:layout_marginTop="@dimen/marginTop_asr_dialog_buttons"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" 
+                android:layout_marginRight="@dimen/marginRight_asr_dialog_button_left">
+
+                <Button
+                    android:id="@+id/btASRDialogOk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bt_selector"
+                    android:nextFocusUp="@+id/btASRDialogOk"
+                    android:visibility="visible"
+                    android:text="确认"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textSize_asr_dialog_button_text" />
+
+                <Button
+                    android:id="@+id/btASRDialogRetryLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:nextFocusUp="@+id/btASRDialogRetryLeft"
+                    android:background="@drawable/bt_selector"
+                    android:text="重	试"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textSize_asr_dialog_button_text" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/btASRDialogCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bt_selector"
+                    android:nextFocusUp="@+id/btASRDialogCancel"
+                    android:text="取	消"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textSize_asr_dialog_button_text" />
+
+                <Button
+                    android:id="@+id/btASRDialogRetryRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:nextFocusUp="@+id/btASRDialogRetryRight"
+                    android:visibility="visible"
+                    android:background="@drawable/bt_selector"
+                    android:text="重 试"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textSize_asr_dialog_button_text" />
+            </FrameLayout>
+        </LinearLayout>
+    </RelativeLayout>
+    
+    <TextView
+	    android:id="@+id/tvSiBiChi"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	    android:textColor="@android:color/darker_gray"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_marginRight="@dimen/marginRight_asr_dialog_support_text"
+	    android:text="语音识别技术由思必驰科技提供支持"
+	    android:textSize="@dimen/textSize_asr_dialog_support_text" />
+
+</RelativeLayout>

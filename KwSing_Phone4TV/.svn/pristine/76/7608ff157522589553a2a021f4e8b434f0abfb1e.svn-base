@@ -1,0 +1,213 @@
+<com.flavienlaurent.discrollview.lib.DiscrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:discrollve="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.flavienlaurent.discrollview.lib.DiscrollViewContent
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:background="@color/background_actionBar"
+            android:padding="25dp"
+            android:textSize="72sp"
+            tools:visibility="gone"
+            android:gravity="center"
+            android:text="手机遥控酷我K歌?"
+            android:textColor="@android:color/white" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#CF4E5C"
+            discrollve:discrollve_alpha="true"
+            discrollve:discrollve_threshold="0.3" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="120dp"
+            discrollve:discrollve_alpha="true"
+            discrollve:discrollve_translation="fromLeft|fromBottom"
+            android:src="@drawable/cheese1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            discrollve:discrollve_fromBgColor="#88EE66"
+            discrollve:discrollve_toBgColor="#000000" />
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="110dp"
+            android:layout_gravity="right"
+            android:src="@drawable/cheese2"
+            discrollve:discrollve_translation="fromRight" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:gravity="center"
+            android:text="当你还在抱怨,奈何不可以远程控制酷我K歌时，我们正在努力做出尝试，这一次，酷我K歌电视端有了自己的小伙伴！"
+            android:textSize="18sp"
+            discrollve:discrollve_alpha="true"
+            discrollve:discrollve_translation="fromBottom" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ilovecheese_heart"
+            discrollve:discrollve_scaleX="true"
+            discrollve:discrollve_scaleY="true"  />
+
+        <com.flavienlaurent.discrollview.sample.DiscrollvablePurpleLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_purple"
+            android:orientation="vertical"
+            tools:visibility="gone">
+
+            <ImageView
+                android:id="@+id/purpleView1"
+                android:alpha="0"
+                android:layout_width="200dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/cheese1"
+                android:translationX="-150dp" />
+
+            <ImageView
+                android:id="@+id/purpleView2"
+                android:alpha="0"
+                android:layout_width="220dp"
+                android:layout_height="110dp"
+                android:layout_gravity="right"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/cheese2"
+                android:translationX="100dp" />
+
+        </com.flavienlaurent.discrollview.sample.DiscrollvablePurpleLayout>
+
+        <com.flavienlaurent.discrollview.sample.DiscrollvablePathLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_light"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/pathView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="我们加入了远程【添加】和【播放】"
+                android:textSize="18sp" />
+
+        </com.flavienlaurent.discrollview.sample.DiscrollvablePathLayout>
+
+        <com.flavienlaurent.discrollview.sample.DiscrollvableRedLayout
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:background="@android:color/holo_red_dark"
+            tools:visibility="gone">
+
+            <TextView
+                android:id="@+id/redView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="20dp"
+                android:paddingBottom="40dp"
+                android:text="我们还加入了远程【切歌】和【暂停】                     "
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/redView2"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:alpha="0.0"
+                android:src="@drawable/cheese3"
+                android:scaleX="0.1"
+                android:scaleY="0.1"
+                android:translationY="50dp" />
+
+        </com.flavienlaurent.discrollview.sample.DiscrollvableRedLayout>
+
+        <com.flavienlaurent.discrollview.sample.DiscrollvableGreenLayout
+            android:layout_width="match_parent"
+            tools:visibility="gone"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_light">
+
+            <TextView
+                android:id="@+id/greenView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="50dp"
+                android:translationY="-50dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="开始吧 ..."
+                android:textSize="36sp" />
+
+        </com.flavienlaurent.discrollview.sample.DiscrollvableGreenLayout>
+
+        <com.flavienlaurent.discrollview.sample.DiscrollvableLastLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/lastView1"
+                android:translationX="-200dp"
+                android:translationY="-200dp"
+                android:alpha="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ilovecheese_i" />
+
+            <ImageView
+                android:id="@+id/lastView2"
+                android:translationX="200dp"
+                android:translationY="200dp"
+                android:alpha="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/lastView3"
+                android:src="@drawable/ilovecheese_heart" />
+
+            <ImageView
+                android:id="@+id/lastView3"
+                android:translationY="200dp"
+                android:alpha="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_below="@+id/lastView1"
+                android:src="@drawable/ilovecheese_cheese" />
+
+        </com.flavienlaurent.discrollview.sample.DiscrollvableLastLayout>
+        
+        <Button 
+            android:id="@+id/btUserGuideToHomePage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="进入酷我K歌"
+            />
+
+    </com.flavienlaurent.discrollview.lib.DiscrollViewContent>
+
+</com.flavienlaurent.discrollview.lib.DiscrollView>

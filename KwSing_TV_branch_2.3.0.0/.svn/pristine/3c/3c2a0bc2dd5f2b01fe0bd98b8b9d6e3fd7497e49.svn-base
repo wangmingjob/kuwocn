@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    
+    <ImageView 
+	    android:id="@+id/ivSingerItem"
+	    android:layout_width="@dimen/singer_item_width"
+	    android:layout_height="@dimen/singer_item_height"
+	    android:layout_alignParentTop="true"
+	    android:layout_centerHorizontal="true"
+	    android:scaleType="fitXY"
+	    android:padding="@dimen/singer_item_padding"
+	    android:background="@drawable/iv_bg_selector"
+	    />
+	
+	<TextView 
+	    android:id="@+id/tvSingerItemName"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="0dp"
+	    android:layout_centerHorizontal="true"
+	    android:layout_below="@id/ivSingerItem"
+	    android:singleLine="true"
+	    android:text="歌手"
+	    android:textSize="@dimen/image_text"
+	    android:textColor="@android:color/white"
+	    android:typeface="normal"
+	    />
+
+</RelativeLayout>

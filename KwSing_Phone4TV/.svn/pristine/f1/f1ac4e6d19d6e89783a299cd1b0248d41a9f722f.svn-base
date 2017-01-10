@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+     <RelativeLayout
+        android:id="@+id/rlHotWordInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="30dip">
+	    <TextView
+	        android:id="@+id/tvHotWord"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginLeft="10dp"
+	        android:textSize="@dimen/item_hotkey_textSize"
+	        android:text="@string/fragment_title_search"/>
+	    
+	    <ImageView 
+	        android:id="@+id/ivHotWordLine"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/tvHotWord"
+	        android:layout_marginTop="5dp"
+	        android:src="@color/item_detail_divider"/>
+	 </RelativeLayout>
+	 
+    <FrameLayout 
+	    android:id="@+id/flFragmentSearch"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_below="@+id/rlHotWordInfo" />
+    
+</RelativeLayout>
+
+

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res/cn.kuwo.sing.tv"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent" >
+    
+    <TextView 
+        android:id="@+id/tvMtvCategoryOrderTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#55000000"
+        android:paddingLeft="@dimen/fragment_title_padding_left"
+        android:paddingTop="@dimen/fragment_title_padding_top"
+        android:paddingBottom="@dimen/fragment_title_padding_bottom"
+        android:text="分类点歌："
+        android:textSize="@dimen/textSize_item_title"
+        android:textColor="@android:color/white"
+        />
+    
+    <ImageView 
+        android:id="@+id/ivMtvCategoryOrderDivide"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/fragment_title_divider_padding_bottom"
+        android:layout_below="@id/tvMtvCategoryOrderTitle"
+        android:src="@drawable/list_divider"
+        />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/ivMtvCategoryOrderDivide"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="6dp" >
+
+        <GridView
+            android:id="@+id/gvMtvCategoryOrder"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="#000000"
+            android:gravity="center"
+            android:nextFocusDown="@id/gvMtvCategoryOrder"
+            android:nextFocusLeft="@+id/rbMtvCategoryOrder"
+            android:nextFocusUp="@id/gvMtvCategoryOrder"
+            android:numColumns="5"
+            android:scrollbarFadeDuration="0"
+            android:scrollbars="vertical" />
+
+        <LinearLayout
+            android:id="@+id/llMtvCategoryOrderRequestFail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="网络数据请求失败 :("
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/textSize_network_error" />
+
+            <Button
+                android:id="@+id/btMtvCategoryOrderRequestFail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/bt_retry_selector"
+                android:nextFocusDown="@id/btMtvCategoryOrderRequestFail"
+                android:nextFocusLeft="@id/rbMtvCategoryOrder"
+                android:nextFocusUp="@id/btMtvCategoryOrderRequestFail"
+                />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar_mtv_category_order"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="false"
+            android:indeterminateDrawable="@anim/loading_progress_bar"
+            android:visibility="visible" />
+
+        <!--
+         <cn.kuwo.sing.tv.view.widget.ProgressWheel
+        android:id="@+id/progressBar_mtv_category"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        ProgressWheel:barColor="#339BB9"
+        android:layout_gravity="center"
+        ProgressWheel:barLength="60dp"
+        ProgressWheel:barWidth="25dp"
+        ProgressWheel:rimColor="@color/loading_rim_color"
+        ProgressWheel:rimWidth="@dimen/loading_rim_width"
+        ProgressWheel:spinSpeed="4dp"
+        ProgressWheel:text=""
+        ProgressWheel:textColor="#222222"
+        ProgressWheel:textSize="14sp" />
+        -->
+
+    </FrameLayout>
+
+</RelativeLayout>

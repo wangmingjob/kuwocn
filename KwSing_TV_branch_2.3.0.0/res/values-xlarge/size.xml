@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="navigation_rb_height">144dp</dimen>
+    
+    <dimen name="image_text">26sp</dimen>
+    <dimen name="exit_dialog_prompt_content">50sp</dimen>
+    <dimen name="exit_dialog_ok">32sp</dimen>
+    <dimen name="exit_dialog_cancel">32sp</dimen>
+    <dimen name="exit_dialog_bt_margin_top">30dp</dimen>
+    <dimen name="exit_dialog_bt_margin_bottom">10dp</dimen>
+    
+    <!-- asr_dialog -->
+    <dimen name="textSize_asr_dialog_info">50sp</dimen>
+    <dimen name="marginTop_asr_dialog_mic">20dp</dimen>
+    <dimen name="marginTop_asr_dialog_result">20dp</dimen>
+    <dimen name="textSize_asr_dialog_result">30sp</dimen>
+    <dimen name="marginTop_asr_dialog_result_content">5dp</dimen>
+    <dimen name="marginTop_asr_dialog_wav">5dp</dimen>
+    <dimen name="marginTop_asr_dialog_buttons">40dp</dimen>
+    <dimen name="marginRight_asr_dialog_button_left">60dp</dimen>
+    <dimen name="textSize_asr_dialog_button_text">32sp</dimen>
+    <dimen name="marginRight_asr_dialog_support_text">20dp</dimen>
+    <dimen name="textSize_asr_dialog_support_text">14sp</dimen>
+    
+    <!-- custom_dialog -->
+    <dimen name="width_custom_dialog_prompt">500dp</dimen>
+    <dimen name="marginTop_custom_dialog_exit_prompt">50dp</dimen>
+    <dimen name="textSize_custom_dialog_exit_prompt">32sp</dimen>
+    <dimen name="marginTop_custom_dialog_buttons">40dp</dimen>
+    <dimen name="marginRight_custom_dialog_button_left">40dp</dimen>
+    <dimen name="textSize_custom_dialog_button">30sp</dimen>
+    <dimen name="marginLeft_custom_dialog_button_right">30dp</dimen>
+    
+    <dimen name="textSize_item_title">28sp</dimen>
+    <dimen name="textSize_network_error">30sp</dimen>
+    <dimen name="textSize_ordered_mtv_num">30sp</dimen>
+    <dimen name="textSize_button_page">18sp</dimen>
+    <dimen name="textSize_page_content">20sp</dimen>
+    <dimen name="textSize_pinyin_order_input_content">20sp</dimen>
+    <dimen name="textSize_pinyin_order_no_data">30sp</dimen>
+    <dimen name="textSize_second_page_left_name">26sp</dimen>
+    
+    <dimen name="textSize_new_page_mode_content">23sp</dimen>
+    
+    
+    <dimen name="item_text_index">28sp</dimen>
+    <dimen name="item_text">26sp</dimen>
+    <dimen name="image_item_width">199dp</dimen>
+    <dimen name="image_item_height">199dp</dimen>
+    <dimen name="image_item_padding">21dp</dimen>
+    <dimen name="singer_item_width">181dp</dimen>
+    <dimen name="singer_item_height">181dp</dimen>
+    <dimen name="singer_item_padding">19dp</dimen>
+    
+    <dimen name="second_image_item_margin_top">4dp</dimen>
+    <dimen name="second_image_item_name_margin_top">8dp</dimen>
+    <dimen name="second_image_item_number_margin_top">8dp</dimen>
+    
+    
+    <dimen name="bt_operation_width">56.67dp</dimen>
+    <dimen name="bt_operation_height">56.67dp</dimen>
+    <dimen name="bt_operation_margin_right">10dp</dimen>
+    <dimen name="ordered_mtv_item_margin_left">45dp</dimen>
+    <dimen name="ordered_mtv_item_margin_right">45dp</dimen>
+    <dimen name="ordered_mtv_item_padding_top">6dp</dimen>
+    <dimen name="ordered_mtv_item_padding_bottom">6dp</dimen>
+    <dimen name="ordered_mtv_item_index_margin_left">10dp</dimen>
+    <dimen name="ordered_mtv_item_index_margin_right">5dp</dimen>
+    <dimen name="ordered_mtv_item_name_margin_left">5dp</dimen>
+    <dimen name="ordered_mtv_item_name_margin_right">10dp</dimen>
+    <dimen name="ordered_mtv_item_playlogo_margin_left">7dp</dimen>
+    <dimen name="ordered_mtv_item_divider_margin_left">10dp</dimen>
+    <dimen name="ordered_mtv_item_divider_margin_right">10dp</dimen>
+    
+    <dimen name="bt_page_width">100.67dp</dimen>
+    <dimen name="bt_page_height">42.67dp</dimen>
+    <dimen name="bt_page_content_margin_left">30dp</dimen>
+    <dimen name="bt_page_content_margin_right">30dp</dimen>
+    
+    <dimen name="fragment_title_padding_top">10dp</dimen>
+    <dimen name="fragment_title_padding_bottom">10dp</dimen>
+    <dimen name="fragment_title_padding_left">45dp</dimen>
+    <dimen name="fragment_title_divider_padding_bottom">10dp</dimen>
+    <dimen name="order_mtv_title_prompt_margin_left">40dp</dimen>
+    <dimen name="order_mtv_title_prompt_margin_top">5dp</dimen>
+    <dimen name="order_mtv_title_prompt_margin_bottom">5dp</dimen>
+    <dimen name="order_mtv_title_number_margin_top">5dp</dimen>
+    <dimen name="order_mtv_title_number_margin_bottom">5dp</dimen>
+    <dimen name="order_mtv_title_end_margin_left">3dp</dimen>
+    <dimen name="order_mtv_title_end_margin_top">5dp</dimen>
+    <dimen name="order_mtv_title_end_margin_bottom">5dp</dimen>
+    <dimen name="order_mtv_title_delete_margin_right">40dp</dimen>
+    <dimen name="order_mtv_title_clear_margin_right">12dp</dimen>
+    <dimen name="order_mtv_title_delete_width">172.67dp</dimen>
+    <dimen name="order_mtv_title_clear_list_width">126.0dp</dimen>
+    <dimen name="order_mtv_title_delete_height">42.67dp</dimen>
+    
+    <dimen name="pinyin_order_hot_keyword_padding_top_bottom">12dp</dimen>
+    <dimen name="pinyin_order_hot_keyword_padding_left_right">16dp</dimen>
+    <dimen name="pinyin_order_hot_keyword_text_size">32sp</dimen>
+    <dimen name="pinyin_order_hot_keyword_gridview_margin_top">20dp</dimen>
+    <dimen name="pinyin_order_hot_keyword_view_margin_top">20dp</dimen>
+    <dimen name="pinyin_order_hot_keyword_gridview_vertical_space">24dp</dimen>
+    
+    <dimen name="pinyin_order_voice_height">80.5dp</dimen>
+    <dimen name="pinyin_order_voice_margin_right">4dp</dimen>
+    <dimen name="pinyin_order_voice_padding_top">30dp</dimen>
+    <dimen name="pinyin_order_voice_padding_bottom">30dp</dimen>
+    <dimen name="pinyin_order_voice_padding_left">15dp</dimen>
+    <dimen name="pinyin_order_voice_padding_right">15dp</dimen>
+    <dimen name="pinyin_order_voice_textSize">16sp</dimen>
+    <dimen name="pinyin_order_letterview_height">80.5dp</dimen>
+    <dimen name="pinyin_order_digital_height">80.5dp</dimen> 
+    <dimen name="pinyin_order_digital_padding_top">30dp</dimen> 
+    <dimen name="pinyin_order_digital_padding_bottom">30dp</dimen> 
+    <dimen name="pinyin_order_digital_padding_left">15dp</dimen> 
+    <dimen name="pinyin_order_digital_padding_right">15dp</dimen> 
+    <dimen name="pinyin_order_digital_textSize">16sp</dimen>
+    
+    <dimen name="pinyin_order_suggest_listview_width">750dp</dimen>
+    <dimen name="pinyin_order_hotkeyword_gridview_width">550dp</dimen>
+    
+    <dimen name="pinyin_order_search_content_width">500dp</dimen>
+    <dimen name="pinyin_order_search_content_height">38dp</dimen>
+    <dimen name="pinyin_order_search_content_margin_right">4dp</dimen>
+    <dimen name="pinyin_order_search_content_textSize">22sp</dimen>
+    <dimen name="pinyin_order_search_hot_keyword_prompt_textSize">28sp</dimen>
+    <dimen name="pinyin_order_search_content_progress_width">36dp</dimen>
+    <dimen name="pinyin_order_search_content_progress_height">36dp</dimen>
+    <dimen name="pinyin_order_search_content_right_bt_width">80dp</dimen>
+    <dimen name="pinyin_order_search_content_right_bt_height">38dp</dimen>
+    <dimen name="pinyin_order_search_content_right_bt_margin_right">4dp</dimen>
+    <dimen name="pinyin_order_search_content_right_bt_padding_left">14dp</dimen>
+    <dimen name="pinyin_order_search_content_right_bt_padding_right">14dp</dimen>
+    <dimen name="pinyin_order_search_content_right_bt_textSize">22sp</dimen>
+    <dimen name="pinyin_order_search_height">135dp</dimen>
+    <dimen name="pinyin_order_search_keyboard_margin_top">4dp</dimen>
+    <dimen name="pinyin_order_search_digital_margin_left">2dp</dimen>
+    <dimen name="pinyin_order_search_suggest_margin_top">5dp</dimen>
+    
+    <dimen name="singer_pinyin_order_height">206dp</dimen>
+    <dimen name="singer_pinyin_order_margin_top">4dp</dimen>
+    <dimen name="singer_pinyin_order_margin_left">4dp</dimen>
+    <dimen name="singer_pinyin_order_last_line_margin_top">3dp</dimen>
+    <dimen name="singer_pinyin_order_last_line_margin_left">2dp</dimen>
+    <dimen name="singer_pinyin_order_last_line_bt_height">38dp</dimen>
+    <dimen name="singer_pinyin_order_last_line_bt_textSize">22sp</dimen>
+    <dimen name="singer_pinyin_order_last_line_bt_margin_left">2.5sp</dimen>
+    <dimen name="singer_pinyin_order_last_line_bt_margin_right">4.5sp</dimen>
+    
+    <dimen name="play_controller_operation_tips_textSize">24sp</dimen>
+    <dimen name="play_controller_current_mtv_textSize">30sp</dimen>
+    <dimen name="play_controller_next_mtv_textSize">28sp</dimen>
+    <dimen name="play_controller_score_prompt_textSize">26sp</dimen>
+    <dimen name="play_controller_score_textSize">38sp</dimen>
+    
+    <dimen name="play_controller_ordered_mtv_fragment_width">500dp</dimen>
+    <dimen name="play_controller_time_textSize">27sp</dimen>
+    
+    <dimen name="play_ordered_mtv_prompt_textSize">28sp</dimen>
+    <dimen name="play_ordered_mtv_number_textSize">30sp</dimen>
+    
+    <dimen name="textSize_pinyin_suggest">20sp</dimen>
+    <dimen name="more_title_text">36sp</dimen>
+    <dimen name="more_mic_help_content">26sp</dimen>
+    <dimen name="more_mic_help_bt_text">20sp</dimen>
+    <dimen name="more_bt_width">295dp</dimen>
+    <dimen name="more_bt_height">179dp</dimen>
+    <dimen name="more_bt_margin_left">60dp</dimen>
+    <dimen name="more_bt_margin_top">40dp</dimen>
+    
+    <dimen name="item_text_small">18sp</dimen>
+    
+    <dimen name="digital_item_text">16sp</dimen>
+    <dimen name="play_menu_divide">0dp</dimen>
+    <dimen name="list_item_margin">13dp</dimen>
+    <dimen name="list_item_index">40dp</dimen>
+    <item name="item_text_len" type="integer">32</item>
+    <dimen name="loading_rim_width">20dp</dimen>
+    <dimen name="item_divide">5dp</dimen>
+    <dimen name="list_bt_divide">5dp</dimen>
+</resources>

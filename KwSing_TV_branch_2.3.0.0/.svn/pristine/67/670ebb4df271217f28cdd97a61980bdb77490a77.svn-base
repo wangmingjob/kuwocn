@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/progessdialog_bg"
+    android:layout_gravity="center" >
+
+    <TextView
+        android:id="@+id/tvPlayControllerExitPrompt"
+        android:layout_width="@dimen/width_custom_dialog_prompt"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/marginTop_custom_dialog_exit_prompt"
+        android:text="您要退出演唱么？"
+        android:singleLine="true"
+        android:textSize="@dimen/textSize_custom_dialog_exit_prompt"
+        android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="@dimen/width_custom_dialog_prompt"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvPlayControllerExitPrompt"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/marginTop_custom_dialog_buttons" >
+
+        <Button
+            android:id="@+id/btPlayControllerExitOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/marginRight_custom_dialog_button_left"
+            android:background="@drawable/bt_selector"
+            android:text="确定"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_custom_dialog_button" />
+
+        <Button
+            android:id="@+id/btPlayControllerExitCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/marginLeft_custom_dialog_button_right"
+            android:background="@drawable/bt_selector"
+            android:text="取消"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_custom_dialog_button" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res/cn.kuwo.sing.tv"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="2dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="2dp" >
+
+    <ImageView
+        android:id="@+id/ivDetailPrePagePrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:focusable="false"
+        android:clickable="true"
+        android:src="@drawable/iv_pre_page_normal" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:layout_above="@+id/rlDetailBottom"
+        android:layout_below="@id/ivDetailPrePagePrompt" >
+
+        <ListView
+            android:id="@+id/lvFragmentDetail"
+            style="@style/CustomListView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:nextFocusDown="@id/lvFragmentDetail"
+            android:nextFocusUp="@id/lvFragmentDetail" />
+
+        <LinearLayout
+            android:id="@+id/llDetailRequestFail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="网络数据请求失败 :("
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/textSize_network_error" />
+
+            <Button
+                android:id="@+id/btDetailRequestFail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/bt_retry_selector" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar_detail_item"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="false"
+            android:indeterminateDrawable="@anim/loading_progress_bar"
+            android:visibility="visible" />
+
+        <!--
+             <cn.kuwo.sing.tv.view.widget.ProgressWheel
+            android:id="@+id/progressBar_detail_item"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            ProgressWheel:barColor="#339BB9"
+            ProgressWheel:barLength="60dp"
+            ProgressWheel:barWidth="25dp"
+            ProgressWheel:rimColor="@color/loading_rim_color"
+            ProgressWheel:rimWidth="@dimen/loading_rim_width"
+            ProgressWheel:spinSpeed="4dp"
+            ProgressWheel:text=""
+            ProgressWheel:textColor="#222222"
+            ProgressWheel:textSize="14sp" /> -->    </FrameLayout>
+
+    <!--
+         <ImageView
+        android:id="@+id/iv_item_detail_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rlItemDetailPagerButton"
+        android:src="@drawable/list_divider" />    -->
+
+    <RelativeLayout
+        android:id="@+id/rlDetailBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <ImageView
+            android:id="@+id/ivDetailNextPagePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:focusable="false"
+            android:clickable="true"
+            android:src="@drawable/iv_next_page_pressed" />
+
+
+        <TextView
+            android:id="@+id/tvItemDetailPagePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="0/0"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

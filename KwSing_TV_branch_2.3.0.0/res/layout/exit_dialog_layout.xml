@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    
+    <ImageView 
+        android:id="@+id/ivExitDialogBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true" >
+
+        <TextView
+            android:id="@+id/tvExitDialogContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="您确定要退出吗？"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/exit_dialog_prompt_content" />
+
+        <LinearLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvExitDialogContent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/exit_dialog_bt_margin_bottom"
+            android:layout_marginTop="@dimen/exit_dialog_bt_margin_top" >
+
+            <Button
+                android:id="@+id/btExitDialogOk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/bt_selector"
+                android:text="确定"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/exit_dialog_ok" />
+
+            <Button
+                android:id="@+id/btExitDialogCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/bt_selector"
+                android:text="取消"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/exit_dialog_cancel" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

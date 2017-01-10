@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    
+	<RelativeLayout
+	    android:id="@+id/rlSysVideoView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#000000"
+        android:orientation="vertical" >
+		<cn.kuwo.sing.tv.view.widget.SysVideoView
+	        android:id="@+id/syssurface"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />  
+	</RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/llSingPlayBufferFail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/play_buffer_fail"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="视频缓冲失败:("
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivSingUserMtvPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/play_mtv_normal"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/ivSingPerfect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="20sp"
+        android:layout_marginLeft="20sp"
+        android:background="@drawable/sing_perfect_1"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/llSingActivityWaiting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <cn.kuwo.sing.tv.utils.WaitingProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#fff"
+            android:textSize="24sp" />
+    </LinearLayout>
+    
+    <!-- 音量控制 -->
+
+    <LinearLayout
+        android:id="@+id/llSingVolumeController"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/progessdialog_bg"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/ll_sing_accomp_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/volume_background_shape"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="伴    奏： "
+                android:textColor="@android:color/white"
+                android:textSize="32sp" />
+
+            <SeekBar
+                android:id="@+id/sb_sing_accomp_volume"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:maxHeight="13dp"
+                android:minHeight="13dp"
+                android:max="100"
+                android:progress="60"
+                android:progressDrawable="@drawable/seekbar_style"
+                android:thumb="@null" />
+
+            <TextView
+                android:id="@+id/tv_sing_accomp_volume_prompt"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="31"
+                android:textColor="@android:color/white"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_sing_microphone_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="20dp"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="麦克风： "
+                android:textColor="@android:color/white"
+                android:textSize="32sp" />
+
+            <SeekBar
+                android:id="@+id/sb_sing_microphone_volume"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:maxHeight="13dp"
+                android:minHeight="13dp"
+                android:max="100"
+                android:progress="35"
+                android:progressDrawable="@drawable/seekbar_style"
+                android:thumb="@null" />
+
+            <TextView
+                android:id="@+id/tv_sing_microphone_volume_prompt"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="38"
+                android:textColor="@android:color/white"
+                android:textSize="28sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:id="@+id/llSingScore"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/play_controller_sing_map_backgroud"
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <cn.kuwo.sing.tv.view.widget.WaveView
+                android:id="@+id/wvSingWaveView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/sing_score_wave_bg" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/tvSingSingleScorePrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="单句得分： "
+                    android:textColor="@android:color/white"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:id="@+id/tvSingSingleScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@id/tvSingSingleScorePrompt"
+                    android:text="0"
+                    android:textColor="#FFD902"
+                    android:textSize="38sp" />
+
+                <TextView
+                    android:id="@+id/tvSingSingleScoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tvSingSingleScore"
+                    android:text="分"
+                    android:textColor="@android:color/white"
+                    android:textSize="26sp" />
+                
+                <TextView 
+                    android:id="@+id/tvSingSingleScoreMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/tvSingSingleScoreText"
+                    android:layout_marginLeft="20dp"
+                    android:text="雷死人了"
+                    android:textColor="@android:color/white"
+                    android:textSize="26sp"
+                    />
+                
+                <TextView
+                    android:id="@+id/tvSingTotalScorePrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tvSingTotalScore"
+                    android:text="总分："
+                    android:textColor="@android:color/white"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:id="@+id/tvSingTotalScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/tvSingTotalScoreText"
+                    android:text="0"
+                    android:textColor="#FFD902"
+                    android:textSize="38sp" />
+
+                <TextView
+                    android:id="@+id/tvSingTotalScoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="分"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlSingCurrentMtvPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/llSingScore"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="20dp" >
+
+            <TextView
+                android:id="@+id/tvSingCurrentMtvNamePrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="正在播放："
+                android:textColor="#00B8F6"
+                android:textSize="@dimen/play_controller_current_mtv_textSize" />
+            
+            <TextView
+                 android:id="@+id/tvSingCurrentMtvName"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_toRightOf="@id/tvSingCurrentMtvNamePrompt"
+                 android:singleLine="true"
+                 android:ellipsize="marquee"
+            	 android:marqueeRepeatLimit="marquee_forever"
+                 android:text="当前播放歌曲的名称"
+                 android:textColor="#00B8F6"
+                 android:textSize="@dimen/play_controller_current_mtv_textSize" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlSingNextMtvPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlSingCurrentMtvPrompt"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="15dp" >
+
+            <TextView
+                android:id="@+id/tvSingNextMtvNamePrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="下一首："
+                android:textColor="#EAECEB"
+                android:textSize="@dimen/play_controller_next_mtv_textSize" />
+
+            <TextView
+                android:id="@+id/tvSingNextMtvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tvSingNextMtvNamePrompt"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:maxLength="@integer/item_text_len"
+                android:singleLine="true"
+                android:text="下一首歌曲的名称 "
+                android:textColor="#EAECEB"
+                android:textSize="@dimen/play_controller_next_mtv_textSize" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/flSingOrderedMtvList"
+            android:layout_width="@dimen/play_controller_ordered_mtv_fragment_width"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/progessdialog_bg"
+            android:visibility="visible" />
+
+        <RelativeLayout
+            android:id="@+id/rl_sing_menu_operate_prompt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ll_sing_play_controller"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="180dp"
+            android:layout_marginRight="180dp"
+            android:background="@drawable/progessdialog_bg" >
+
+            <TextView
+                android:id="@+id/tv_operate_prompt_volume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="上下键-呼出音量调节框"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/play_controller_operation_tips_textSize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30dp"
+                android:layout_toLeftOf="@id/tv_operate_prompt_volume"
+                android:text="OK键-显示菜单"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/play_controller_operation_tips_textSize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@id/tv_operate_prompt_volume"
+                android:text="左右键-快速切歌"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/play_controller_operation_tips_textSize" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_sing_play_controller"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <RelativeLayout
+                android:id="@+id/rlSingControllerBarTop"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sing_controller_bar_top" >
+
+                <SeekBar
+                    android:id="@+id/sbSingControllerSeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:focusable="false"
+                    android:max="100"
+                  	android:layout_toRightOf="@+id/tvSingControllerPlayedTime"
+                    android:layout_toLeftOf="@+id/tvSingControllerTotalTime"
+                    android:maxHeight="13dp"
+                    android:minHeight="13dp"
+                    android:paddingLeft="4.5dp"
+                    android:paddingRight="4.5dp"
+                    android:layout_marginLeft="27dp"
+                    android:layout_marginRight="27dp"
+                    android:progressDrawable="@drawable/seekbar_style"
+                    android:thumb="@drawable/sing_controller_seekbar_bg"
+                    android:thumbOffset="10dp" />
+
+                <!-- drawable/sing_controller_seekbar_bg -->
+
+                <TextView
+                    android:id="@+id/tvSingControllerPlayedTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="00:00"
+                    android:textColor="#00B8F6"
+                    android:textSize="@dimen/play_controller_time_textSize"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/tvSingControllerTotalTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="00:00"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/play_controller_time_textSize"
+                    android:textStyle="normal" />
+            </RelativeLayout>
+
+            <include
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/sing_play_control_layout" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

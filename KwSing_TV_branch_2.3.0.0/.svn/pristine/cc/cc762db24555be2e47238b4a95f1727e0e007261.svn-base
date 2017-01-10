@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center" >
+
+    <LinearLayout
+        android:id="@+id/llMoreLine1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btQrCode4Phone"
+            android:layout_width="@dimen/more_bt_width"
+            android:layout_height="@dimen/more_bt_height"
+            android:layout_marginLeft="@dimen/more_bt_margin_left"
+            android:background="@drawable/bt_phoneorder_selector"
+            android:nextFocusLeft="@+id/rbMore"
+            android:nextFocusRight="@+id/btHardwareDecode"
+            android:nextFocusUp="@+id/btQrCode4Phone"
+            android:nextFocusDown="@+id/btUserFeedback" />
+
+        <Button
+            android:id="@+id/btHardwareDecode"
+            android:layout_width="@dimen/more_bt_width"
+            android:layout_height="@dimen/more_bt_height"
+            android:layout_marginLeft="@dimen/more_bt_margin_left"
+            android:background="@drawable/bt_hardware_decoder_selector"
+            android:nextFocusLeft="@+id/btQrCode4Phone"
+            android:nextFocusUp="@+id/btHardwareDecode"
+            android:nextFocusDown="@+id/btUpdateLogs" />
+        
+        <Button
+            android:id="@+id/btMicrophoneHelp"
+            android:layout_width="@dimen/more_bt_width"
+            android:layout_height="@dimen/more_bt_height"
+            android:layout_marginLeft="@dimen/more_bt_margin_left"
+            android:background="@drawable/bt_microphone_help_selector"
+            android:nextFocusLeft="@+id/btHardwareDecode"
+            android:nextFocusUp="@+id/btMicrophoneHelp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llMoreLine2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/llMoreLine1"
+        android:layout_alignLeft="@+id/llMoreLine1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btUserFeedback"
+            android:layout_width="@dimen/more_bt_width"
+            android:layout_height="@dimen/more_bt_height"
+            android:layout_marginLeft="@dimen/more_bt_margin_left"
+            android:background="@drawable/bt_user_feedback_selector"
+            android:nextFocusLeft="@+id/rbMore"
+            android:nextFocusUp="@+id/btQrCode4Phone"
+            android:nextFocusDown="@id/btUpdateLogs"/>
+        
+        <Button
+            android:id="@+id/btUpdateLogs"
+            android:layout_width="@dimen/more_bt_width"
+            android:layout_height="@dimen/more_bt_height"
+            android:layout_marginLeft="@dimen/more_bt_margin_left"
+            android:background="@drawable/bt_update_logs_selector"
+            android:nextFocusDown="@id/btUpdateLogs"
+            android:nextFocusLeft="@+id/btUserFeedback" />
+    </LinearLayout>
+
+</RelativeLayout>

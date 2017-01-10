@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_fragment" >
+
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/pagerSlidingTabStrip"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/pagerSlidingTabStrip_height"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/background_tabs"
+        pstsDividerColor="#dbd8ce"
+        pstsIndicatorHeight="1dp"
+        pstsDividerPadding="0dp"
+        pstsTabPaddingLeftRight="2dp"
+        pstsTabBackground="#f7f7f6"
+         />
+
+    <com.jazzyview.jazzyviewpager.JazzyViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/layer_main_offset_width"
+        android:layout_below="@id/pagerSlidingTabStrip" />
+
+    <com.slidinglayer.SlidingLayer
+        xmlns:slidingLayer="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/slidingLayerMain"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/layer_main_height"
+        android:layout_alignParentBottom="true"
+        slidingLayer:offsetWidth="@dimen/layer_main_offset_width"
+        slidingLayer:openOnTapEnabled="true"
+        slidingLayer:closeOnTapEnabled="true"
+        slidingLayer:stickTo="bottom" >
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#33030000" >
+			<include 
+			    layout="@layout/include_connected"
+			    android:layout_width="fill_parent"
+			    android:layout_height="fill_parent"
+			    />
+			<include 
+			    layout="@layout/include_disconnected"
+			    android:layout_width="fill_parent"
+			    android:layout_height="fill_parent"
+			    />
+        </FrameLayout>
+    </com.slidinglayer.SlidingLayer>
+
+</RelativeLayout>

@@ -1,0 +1,11 @@
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_list"
+    android:name="cn.kuwo.sing.tv.view.fragment.ItemListFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:layout_marginTop="35dp"
+    android:layout_marginBottom="35dp"
+    android:layout_marginRight="38dp"
+    tools:context=".ItemListActivity"
+    tools:layout="@android:layout/list_content" />
